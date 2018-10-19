@@ -2,7 +2,7 @@
 
 [![Version](https://img.shields.io/npm/v/doppler-cli.svg)](https://www.npmjs.org/package/doppler-cli)
 
-The Doppler CLI provides an quick way to download an .env from Doppler.
+The Doppler CLI provides a quick way to download a `.env` from Doppler.
 
 ## Installation
 
