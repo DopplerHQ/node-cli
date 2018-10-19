@@ -7,7 +7,7 @@ The Doppler CLI provides an quick way to download an .env from Doppler.
 ## Installation
 
 Install the CLI with:
-``` js
+``` bash
 npm install doppler-cli -g
 ```
 
@@ -16,7 +16,7 @@ npm install doppler-cli -g
 Before starting to use the CLI, please create a `.doppler` file in your project. We **STRONGLY** recommend
 adding the `.doppler` file to your `.gitignore` file so it is not tracked by git. 
 
-```
+``` bash
 API_KEY = <DOPPLER_API_KEY>
 PIPELINE = <PIPELINE ID>
 ```
@@ -26,19 +26,19 @@ PIPELINE = <PIPELINE ID>
 
 Downloading an `.env` file is easy with the CLI.
 
-```
+``` bash
 doppler <ENVIRONMENT_NAME> <FILENAME>
 ```
 
 Example:
-```
+``` bash
 doppler development_primary development.env
 ```
 
 
 ## Output
 
-```
+``` bash
 # Pipeline Name: Pied Piper Demo
 # Pipeline Description: Video compression micro service.
 # Environment Name: development_primary
