@@ -1,8 +1,6 @@
 # Doppler Node.js Library
 
 [![Version](https://img.shields.io/npm/v/doppler-cli.svg)](https://www.npmjs.org/package/doppler-cli)
-[![Downloads](https://img.shields.io/npm/dm/doppler-cli.svg)](https://www.npmjs.com/package/doppler-cli)
-[![Try on RunKit](https://badge.runkitcdn.com/doppler-cli.svg)](https://runkit.com/npm/doppler-cli)
 
 The Doppler CLI provides an quick way to download an .env from Doppler.
 
