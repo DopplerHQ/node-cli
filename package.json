@@ -1,0 +1,29 @@
+{
+  "name": "doppler-cli",
+  "version": "1.0.1",
+  "description": "The official Doppler CLI.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DopplerHQ/cli.git"
+  },
+  "bin": {
+    "doppler": "index.js"
+  },
+  "keywords": [
+    "doppler",
+    "cli",
+    "environment",
+    "configuration management"
+  ],
+  "author": "Brian Vallelunga <brian@doppler.market>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/DopplerHQ/cli/issues"
+  },
+  "homepage": "https://doppler.market",
+  "dependencies": {
+    "dotenv": "^6.1.0",
+    "request-promise": "^4.2.2"
+  }
+}
