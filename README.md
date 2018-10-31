@@ -19,32 +19,51 @@ adding the `.doppler` file to your `.gitignore` file so it is not tracked by git
 ``` bash
 API_KEY = <DOPPLER_API_KEY>
 PIPELINE = <PIPELINE ID>
+ENVIRONMENT = <ENVIRONMENT NAME>
 ```
 
 
 ## Useage
 
-Downloading an `.env` file is easy with the CLI.
-
 ``` bash
-doppler <ENVIRONMENT_NAME> <FILENAME>
+Usage: doppler [options] [command]
+
+Options:
+  -V, --version              output the version number
+  -k, --key <API KEY>        override Doppler API key from ".doppler" file
+  -e, --environment <NAME>   override Environment name from ".doppler" file
+  -p, --pipeline <ID>        override Pipeline ID from ".doppler" file
+  -h, --help                 output usage information
+
+Commands:
+  local [options] <COMMAND>  run your app locally
+  download <PATH>            download an environment's dotenv file
 ```
 
-Example:
-``` bash
-doppler development_primary development.env
+
+## Run Locally
+
+The cli can inject your Doppler environments keys through the `local` command. Your
+application will then be able to pull your keys natively.
+
+``` bash 
+doppler local "node server.js"
 ```
 
 
-## Output
+## Download DOTENV
+
+You can download an environment's keys into a dotenv file with the `download` command.
+
 
 ``` bash
-# Pipeline Name: Pied Piper Demo
-# Pipeline Description: Video compression micro service.
-# Environment Name: development_primary
-# Last Updated: Sun Oct 07 2018 17:35:30 GMT-0700 (PDT)
+doppler download ./backup.env
+``` 
 
 
+### Output
+
+``` bash
 USER=richard
 S3_KEY=AKIAJCBLJXRPPC7Z7XYQ
 APP_NAME=video-stream

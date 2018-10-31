@@ -1,6 +1,6 @@
 {
   "name": "doppler-cli",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "The official Doppler CLI.",
   "main": "index.js",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "git+https://github.com/DopplerHQ/cli.git"
   },
   "bin": {
-    "doppler": "./index.js"
+    "doppler": "./lib/index.js"
   },
   "keywords": [
     "doppler",
@@ -23,6 +23,8 @@
   },
   "homepage": "https://doppler.market",
   "dependencies": {
+    "commander": "^2.19.0",
+    "doppler-client": "^1.2.1",
     "dotenv": "^6.1.0",
     "request-promise": "^4.2.2"
   }
