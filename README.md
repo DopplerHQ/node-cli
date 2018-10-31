@@ -67,7 +67,7 @@ doppler download ./backup.env
 USER=richard
 S3_KEY=AKIAJCBLJXRPPC7Z7XYQ
 APP_NAME=video-stream
-GOOGLE_ID=102942803142-h643igr316bj0m9q09n14shg0hhodpq8.apps.googleusercontent.com
+GOOGLE_ID=1029428031429n14shg0hhodpq8.apps.googleusercontent.com
 REDIS_URL=redis://richard@anton.localhost:6379
 S3_SECRET=dyDcE2EQD68FeA0au41rJBhR+GdsmBtcjXhlw
 MONGODB_URI=mongodb://richard@localhost/video-stream
