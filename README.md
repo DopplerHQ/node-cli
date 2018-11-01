@@ -7,6 +7,7 @@ The Doppler CLI provides a quick way to download a `.env` from Doppler.
 ## Installation
 
 Install the CLI with:
+
 ``` bash
 npm install doppler-cli -g
 ```
@@ -51,7 +52,7 @@ doppler local "node server.js"
 ```
 
 
-## Download DOTENV
+## Download Dotenv
 
 You can download an environment's keys into a dotenv file with the `download` command.
 
