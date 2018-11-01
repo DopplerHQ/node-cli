@@ -48,7 +48,7 @@ The cli can inject your Doppler environments keys through the `local` command. Y
 application will then be able to pull your keys natively.
 
 ``` bash 
-doppler local "node server.js"
+doppler local 'node server.js'
 ```
 
 
