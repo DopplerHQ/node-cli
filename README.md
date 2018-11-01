@@ -47,9 +47,10 @@ Commands:
 The cli can inject your Doppler environments keys through the `local` command. Your
 application will then be able to pull your keys natively.
 
-``` bash 
-doppler local 'node server.js'
-```
+
+``` bash
+doppler local "node server.js"
+``` 
 
 
 ## Download Dotenv
@@ -85,4 +86,3 @@ SENDGRID_API_KEY=SG.hQ46NBfgRqSfFyuK_3tIMg.HfKdKxhQN8yghwz6XTzqIcNv8d0kMWlmbkkFJ
 
 - [Doppler](https://doppler.market)
 - [API KEY](https://doppler.market/workplace/api_key)
-
