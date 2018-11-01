@@ -2,14 +2,15 @@
 
 [![Version](https://img.shields.io/npm/v/doppler-cli.svg)](https://www.npmjs.org/package/doppler-cli)
 
-The Doppler CLI provides a quick way to download a `.env` from Doppler.
+The Doppler CLI provides convenient access to the Doppler API from
+applications written for **only** server-side code.
 
 ## Installation
 
 Install the CLI with:
 
 ``` bash
-npm install doppler-cli -g
+npm install -g doppler-cli
 ```
 
 ## Setting Credentials
