@@ -31,9 +31,9 @@ Usage: doppler [options] [command]
 
 Options:
   -V, --version              output the version number
-  -k, --key <API KEY>        override Doppler API key from ".doppler" file
-  -e, --environment <NAME>   override Environment name from ".doppler" file
-  -p, --pipeline <ID>        override Pipeline ID from ".doppler" file
+  -k, --key <API KEY>        override API key from ".doppler" file
+  -e, --environment <NAME>   override environment from ".doppler" file
+  -p, --pipeline <ID>        override pipeline from ".doppler" file
   -h, --help                 output usage information
 
 Commands:
