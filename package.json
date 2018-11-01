@@ -26,6 +26,6 @@
     "commander": "^2.19.0",
     "doppler-client": "^1.2.1",
     "dotenv": "^6.1.0",
-    "request-promise": "^4.2.2"
+    "exec-sh": "^0.3.2"
   }
 }
