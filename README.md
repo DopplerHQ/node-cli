@@ -84,7 +84,7 @@ SENDGRID_API_KEY=SG.hQ46NBfgRqSfFyuK_3tIMg.HfKdKxhQN8yghwz6XTzqIcNv8d0kMWlmbkkFJ
 ```
 
 
-### PHP HTACCESS Format
+### PHP Htaccess Format
 
 You can also download an environment's keys into a `.htaccess` file format for PHP users.
 
@@ -93,7 +93,7 @@ You can also download an environment's keys into a `.htaccess` file format for P
 doppler download ./backup.htaccess --htaccess
 ```
 
-### HTACCESS Output
+### Htaccess Output
 
 ``` bash
 SetEnv USER "richard"
