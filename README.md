@@ -84,6 +84,24 @@ SENDGRID_API_KEY=SG.hQ46NBfgRqSfFyuK_3tIMg.HfKdKxhQN8yghwz6XTzqIcNv8d0kMWlmbkkFJ
 ```
 
 
+### PHP HTACCESS Format
+
+You can also download an environment's keys into a `.htaccess` file format for PHP users.
+
+
+``` bash
+doppler download ./backup.htaccess --htaccess
+```
+
+### HTACCESS Output
+
+``` bash
+SetEnv USER "richard"
+SetEnv S3_KEY "AKIAJCBLJXRPPC7Z7XYQ"
+SetEnv APP_NAME "video-stream"
+``` 
+
+
 ## Extra Information
 
 - [Doppler](https://doppler.market)
