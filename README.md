@@ -25,6 +25,12 @@ PIPELINE = <PIPELINE ID>
 ENVIRONMENT = <ENVIRONMENT NAME>
 ```
 
+You can also set the credentials as arguments
+
+``` bash
+doppler -k <DOPPLER_API_KEY> -p <PIPELINE ID> -e <ENVIRONMENT NAME> local "node server.js"
+```
+
 
 ## Useage
 
