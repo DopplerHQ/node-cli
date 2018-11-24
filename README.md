@@ -31,7 +31,6 @@ You can also set the credentials as arguments
 doppler -k <DOPPLER_API_KEY> -p <PIPELINE ID> -e <ENVIRONMENT NAME> local "node server.js"
 ```
 
-
 ## Useage
 
 ``` bash
@@ -49,7 +48,6 @@ Commands:
   download <PATH>            download an environment's dotenv file
 ```
 
-
 ## Run Locally
 
 The cli can inject your Doppler environments keys through the `local` command. Your
@@ -60,7 +58,6 @@ application will then be able to pull your keys natively.
 doppler local "node server.js"
 ``` 
 
-
 ## Download Dotenv
 
 You can download an environment's keys into a dotenv file with the `download` command.
@@ -69,7 +66,6 @@ You can download an environment's keys into a dotenv file with the `download` co
 ``` bash
 doppler download ./backup.env
 ``` 
-
 
 ### Output
 
@@ -89,7 +85,6 @@ BUGSNAG_API_KEY=33d3587193a0f2fef7a27
 SENDGRID_API_KEY=SG.hQ46NBfgRqSfFyuK_3tIMg.HfKdKxhQN8yghwz6XTzqIcNv8d0kMWlmbkkFJA
 ```
 
-
 ### PHP Htaccess Format
 
 You can also download an environment's keys into a `.htaccess` file format for PHP users.
@@ -106,7 +101,6 @@ SetEnv USER "richard"
 SetEnv S3_KEY "AKIAJCBLJXRPPC7Z7XYQ"
 SetEnv APP_NAME "video-stream"
 ``` 
-
 
 ## Extra Information
 
