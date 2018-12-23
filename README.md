@@ -102,5 +102,5 @@ SetEnv APP_NAME "video-stream"
 
 ## Extra Information
 
-- [Doppler](https://doppler.market)
-- [API KEY](https://doppler.market/workplace/api_key)
+- [Doppler](https://doppler.com)
+- [API KEY](https://doppler.com/workplace/api_key)
