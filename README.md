@@ -75,17 +75,17 @@ doppler local "python server.py" --fallback="./fallback.env"
 Few ways to use the CLI with popular programming languages:
 
 ``` bash
-GO: doppler local "go run server.go"
+doppler local "go run server.go" # go
 
-PHP: doppler local "php artisan serve"
+doppler local "php artisan serve" # php
 
-Java: doppler local "java -jar Server.jar"
+doppler local "java -jar Server.jar" # java
 
-Node.js: doppler local "node server.js"
+doppler local "node server.js" # node.js
 
-Python: doppler local "python server.py"
+doppler local "python server.py" # python
 
-Ruby: doppler local "ruby server.rb"
+doppler local "ruby server.rb" # ruby
 ```
 
 
