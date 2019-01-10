@@ -56,7 +56,20 @@ application will then be able to pull your keys natively.
 
 ``` bash
 doppler local "node server.js"
+
+Options:
+  -d, --dotenv <DOTENV FILEPATH>    pull local keys to track from your '.env' file (default: ".env")
+  -f, --fallback <DOTENV FILEPATH>  writes to this file on boot and reads from it when you loose connection to the Doppler API.
+  -h, --help                        output usage information
 ``` 
+
+### Fallback Option
+When the fallback option is enabled, the CLI will write to a ".env" file on boot and reads from it when you loose connection to the Doppler API.
+
+```
+doppler local "node server.js" --fallback="./fallback.env"
+```
+
 
 ## Download Dotenv
 
@@ -64,6 +77,10 @@ You can download an environment's keys into a dotenv file with the `download` co
 
 ``` bash
 doppler download ./backup.env
+
+Options:
+  -h, --htaccess  set output file type to .htaccess for php
+  -h, --help      output usage information
 ``` 
 
 ### Output
