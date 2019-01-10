@@ -64,9 +64,9 @@ Options:
 ``` 
 
 ### Fallback Option
-When the fallback option is enabled, the CLI will write to a ".env" file on boot and reads from it when you loose connection to the Doppler API.
+When the fallback option is enabled, the CLI will write to a `.env` file on boot and reads from it when you loose connection to the Doppler API.
 
-```
+``` bash
 doppler local "node server.js" --fallback="./fallback.env"
 ```
 
