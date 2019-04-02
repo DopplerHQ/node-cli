@@ -1,10 +1,18 @@
 module.exports = function(program) {
-  require("./help")(program)
-  require("./local")(program)
-  require("./download")(program)
-  require("./workplace")(program)
-  require("./logs")(program)
-  require("./pipelines")(program)
-  require("./stages")(program)
-  require("./environments")(program)
+  const controllers = [
+    require("./help"),
+    require("./local"),
+    require("./update"),
+    require("./workplace"),
+    require("./logs"),
+    require("./pipelines"),
+    require("./stages"),
+    require("./environments"),
+    require("./variables")
+  ]
+  
+  for(var i = 0; i < controllers.length; i++) {
+    controllers[i](program)
+    program.command("")
+  }
 }

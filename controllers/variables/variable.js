@@ -1,15 +1,16 @@
 function task_runner(program, argument, options) {  
-  program.api.stages.variable({
-    stage: argument,
+  program.api.variables.variable({
     pipeline: parseInt(options.pipeline),
-    name: options.name
+    environment: options.environment,
+    name: argument
   }).then(function(response) {
     if(options.json) {    
       console.log(response)
     } else {
       console.table([{
         name: response.name,
-        value: response.value
+        value: response.value.raw,
+        computed: response.value.computed
       }])
     }
   })
@@ -18,10 +19,10 @@ function task_runner(program, argument, options) {
 
 module.exports = function(program) {
   program
-    .command("stages:variables:one <id>")
-    .description("stage's specific default variable")
+    .command("variables:one <name>")
+    .description("view specific variable in environment")
     .option("-p, --pipeline <id>", "pipeline id")
-    .option("-n, --name <string>", "name of variable")
+    .option("-e, --environment <name>", "environment name")
     .option("--json", "print in json format", false)
     .action(function(argument, options) {
       task_runner(program, argument, options)
