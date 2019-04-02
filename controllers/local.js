@@ -1,11 +1,7 @@
-const utils = require("./utils")
-const Doppler = require("doppler-client")
-
-
-function task_runner(program, argument, options) {
-  const doppler = utils.doppler(program, options.fallback)
+function task_runner(program, argument, options) {  
+  const doppler = program.utils.doppler(options.fallback)
   
-  utils.runCommand(process.cwd(), argument, {
+  program.utils.runCommand(process.cwd(), argument, {
     env: doppler.remote_keys
   })
 }

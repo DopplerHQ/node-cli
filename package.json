@@ -8,7 +8,7 @@
     "url": "git+https://github.com/DopplerHQ/cli.git"
   },
   "bin": {
-    "doppler": "./lib/index.js"
+    "doppler": "./cli.js"
   },
   "keywords": [
     "doppler",
@@ -26,6 +26,7 @@
     "commander": "2.19.0",
     "doppler-client": "^2.0.4",
     "dotenv": "6.1.0",
-    "exec-sh": "0.3.2"
+    "exec-sh": "0.3.2",
+    "request-promise": "^4.2.4"
   }
 }
