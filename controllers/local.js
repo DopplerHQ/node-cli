@@ -13,8 +13,8 @@ module.exports = function(program) {
     .command("local <COMMAND>")
     .description("run your app locally")
     .option("-f, --fallback <DOTENV FILEPATH>", "writes to this file on boot and reads from it when you loose connection to the Doppler API.")
-    .option("-p, --pipeline <ID>", "override pipeline from '.doppler' file")
-    .option("-e, --environment <NAME>", "override environment from '.doppler' file")
+    .option("-p, --pipeline <id>", "pipeline id")
+    .option("-e, --environment <name>", "environment name")
     .action(function(argument, options) {
       task_runner(program, argument, options)
     });

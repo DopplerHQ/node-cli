@@ -1,6 +1,5 @@
 function task_runner(program, path, options) {  
-  const doppler = program.utils.doppler()
-  program.utils.write_env(doppler.remote_keys, path) 
+  program.utils.doppler(path)
 }
 
 
