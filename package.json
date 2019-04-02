@@ -24,6 +24,7 @@
   "homepage": "https://doppler.market",
   "dependencies": {
     "bluebird": "^3.5.3",
+    "chalk": "^2.4.2",
     "commander": "^2.19.0",
     "console.table": "^0.10.0",
     "doppler-client": "^2.0.4",

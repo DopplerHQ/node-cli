@@ -4,6 +4,7 @@ const dotenv = require("dotenv")
 const spawn = require("exec-sh")
 const doppler = require("doppler-client")
 const hasher = require("random-hash")
+const chalk = require('chalk')
 
 
 module.exports = function(program) {
@@ -30,18 +31,17 @@ module.exports = function(program) {
   }
   
   exports.load_credentials = function() {
-    const config = exports.load_env(".doppler") || {}
-    const api_key = program.key || config.API_KEY
-    const pipeline = program.pipeline || config.PIPELINE
-    const environment = program.environment || config.ENVIRONMENT
+    const path = require('os').homedir() + "/.doppler"
+    const config = exports.load_env(path) || {}
+    const api_key = program.key || config.key || null
+    const pipeline = program.pipeline || config.pipeline || null
+    const environment = program.environment || config.environment || null
       
-    if(api_key == null || pipeline == null || environment == null) {
-      console.error(
-        "Please create a .doppler file in this directory with the following values.\n\n" +   
-        "API_KEY = <DOPPLER_API_KEY>\n" +
-        "PIPELINE = <PIPELINE ID>\n" +
-        "ENVIRONMENT = <ENVIRONMENT NAME>\n"
-      )
+    if(api_key == null) {
+      console.error(chalk.red(
+        "please set your Doppler API Key with the following command:\n" +
+        "doppler config:set key <YOUR DOPPLER API KEY>"
+      ))
       
       process.exit(1)
     }
@@ -57,13 +57,13 @@ module.exports = function(program) {
     return env.parsed || null
   }
   
-  exports.write_env = function(doppler, file_path) {
+  exports.write_env = function(config, file_path) {
     var body = []
   
-    for(var key in doppler.remote_keys) {
-      if(!doppler.remote_keys.hasOwnProperty(key)) { continue }
+    for(var key in config) {
+      if(!config.hasOwnProperty(key)) { continue }
       
-      const value = doppler.remote_keys[key]
+      const value = config[key]
       body.push(key + " = " + value)
     }
     
@@ -71,7 +71,7 @@ module.exports = function(program) {
     const full_body = body.join("\n")
     fs.writeFile(full_path, full_body, function(error) {
       if(error != null) {
-        console.error("Failed to write backup to disk with path " + full_path)
+        console.error(chalk.red("Failed to write backup to disk with path " + full_path))
       }  
     })
   }
@@ -100,9 +100,9 @@ module.exports = function(program) {
       return child
   
     } catch (e) {
-      console.error("Error trying to execute command '" + cmd + "' in directory '" + process.cwd() + "'");
-      console.error(e);
-      console.log("error", e.message);
+      console.error(chalk.red("Error trying to execute command '" + cmd + "' in directory '" + process.cwd() + "'"));
+      console.error(chalk.red(e));
+      console.log(chalk.red("error", e.message));
     }
   }
   

@@ -1,4 +1,5 @@
 const request = require("request-promise")
+const chalk = require('chalk')
 
 
 module.exports = function(program) {
@@ -26,8 +27,20 @@ module.exports = function(program) {
       const definition = definitions[key]
 
       endpoints[group_name][key] = function(input={}) {
+        // Build Data
+        var data = program.utils.load_credentials()
+        
+        for(var name in input) {
+          if(!input.hasOwnProperty(name)) { continue }
+          
+          const value = input[name]
+          
+          if(value != null && value != undefined && !(typeof value == "number" && isNaN(value))) {
+            data[name] = value
+          }
+        }
+        
         // Build Request
-        const data = Object.assign(program.utils.load_credentials(), input)
         var request_data = {
           method: definition.method,
           uri: program.host + definition.path(data),
@@ -59,10 +72,10 @@ module.exports = function(program) {
         // Make Request
         return request(request_data).catch(function(error) {
           if(typeof error.error == "string") {
-            console.error(error.error)
+            console.error(chalk.red(error.error))
           } else {
             for (var i = 0; i < error.error.messages.length; i++) {
-              console.error(error.error.messages[i]);
+              console.error(chalk.red(error.error.messages[i]));
             }
           }
           

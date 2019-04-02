@@ -1,6 +1,7 @@
 module.exports = function(program) {
   const controllers = [
     require("./help"),
+    require("./config"),
     require("./local"),
     require("./workplace"),
     require("./logs"),
