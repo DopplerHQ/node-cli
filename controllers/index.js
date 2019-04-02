@@ -2,13 +2,14 @@ module.exports = function(program) {
   const controllers = [
     require("./help"),
     require("./local"),
-    require("./update"),
     require("./workplace"),
     require("./logs"),
     require("./pipelines"),
     require("./stages"),
     require("./environments"),
-    require("./variables")
+    require("./variables"),
+    require("./links"),
+    require("./update"),
   ]
   
   for(var i = 0; i < controllers.length; i++) {

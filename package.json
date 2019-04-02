@@ -30,6 +30,7 @@
     "dotenv": "6.1.0",
     "exec-sh": "0.3.2",
     "moment": "^2.24.0",
+    "opn": "^6.0.0",
     "random-hash": "^4.0.1",
     "request-promise": "^4.2.4",
     "striptags": "^3.1.1"
