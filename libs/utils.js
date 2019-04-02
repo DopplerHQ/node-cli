@@ -3,10 +3,18 @@ const path = require("path")
 const dotenv = require("dotenv")
 const spawn = require("exec-sh")
 const doppler = require("doppler-client")
+const hasher = require("random-hash")
 
 
 module.exports = function(program) {
   var exports = {}
+  
+  exports.random = function(length) {
+    return hasher.generateHash({ 
+      length: length || 10,
+      charset: 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789aA'
+    })
+  }
   
   exports.doppler = function(fallback_path = null) {
     const credentials = exports.load_credentials()
@@ -20,7 +28,6 @@ module.exports = function(program) {
       backup_filepath: fallback_path
     })
   }
-  
   
   exports.load_credentials = function() {
     const config = exports.load_env(".doppler") || {}
@@ -41,7 +48,6 @@ module.exports = function(program) {
     
     return { api_key, pipeline, environment }
   }
-  
   
   exports.load_env = function(file_path) {
     const env = dotenv.config({ 
@@ -70,14 +76,15 @@ module.exports = function(program) {
     })
   }
   
-  exports.runCommand = function(dir, cmd, options) { 
+  exports.runCommand = function(cmd, options={}) { 
     function exit_handler(exitCode) {
       this.kill();
       process.exit(exitCode || 1);
     }
      
     try {
-      options.cwd = dir
+      options.cwd = process.cwd()
+      options.env = options.env || {}
       options.env.PATH = process.env.PATH
       options.env.PS1 = process.env.PS1
       options.env.HOME = process.env.HOME
@@ -93,7 +100,7 @@ module.exports = function(program) {
       return child
   
     } catch (e) {
-      console.error("Error trying to execute command '" + cmd + "' in directory '" + dir + "'");
+      console.error("Error trying to execute command '" + cmd + "' in directory '" + process.cwd() + "'");
       console.error(e);
       console.log("error", e.message);
     }

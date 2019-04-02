@@ -22,6 +22,14 @@ module.exports.logs = {
   payload: ["pipeline"]
 }
 
+module.exports.logs_view = {
+  method: "GET",
+  path: function(data) { 
+    return "/v2/environments/" + data.environment + "/logs/" + data.log
+  },
+  payload: ["pipeline"]
+}
+
 module.exports.logs_rollback = {
   method: "POST",
   path: function(data) { 
@@ -35,7 +43,7 @@ module.exports.create = {
   path: function(data) { 
     return "/v2/environments" 
   },
-  payload: ["pipeline", "stage", "name"]
+  payload: ["pipeline", "stage", "name", "defaults"]
 }
 
 module.exports.update = {
@@ -47,7 +55,7 @@ module.exports.update = {
 }
 
 module.exports.delete = {
-  method: "DELTE",
+  method: "DELETE",
   path: function(data) { 
     return "/v2/environments/" + data.environment 
   },

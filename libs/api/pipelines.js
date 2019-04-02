@@ -29,7 +29,7 @@ module.exports.update = {
 }
 
 module.exports.delete = {
-  method: "DELTE",
+  method: "DELETE",
   path: function(data) { 
     return "/v2/pipelines/" + data.pipeline 
   }

@@ -8,7 +8,8 @@ module.exports = function(program) {
     logs: require("./logs"),
     pipelines: require("./pipelines"),
     stages: require("./stages"),
-    environments: require("./environments")
+    environments: require("./environments"),
+    variables: require("./variables")
   }
   
   // Build Endpoints
@@ -24,7 +25,7 @@ module.exports = function(program) {
       if(!definitions.hasOwnProperty(key)) { continue }
       const definition = definitions[key]
 
-      endpoints[group_name][key] = function(input) {
+      endpoints[group_name][key] = function(input={}) {
         // Build Request
         const data = Object.assign(program.utils.load_credentials(), input)
         var request_data = {
@@ -57,8 +58,12 @@ module.exports = function(program) {
         
         // Make Request
         return request(request_data).catch(function(error) {
-          for (var i = 0; i < error.error.messages.length; i++) {
-            console.error(error.error.messages[i]);
+          if(typeof error.error == "string") {
+            console.error(error.error)
+          } else {
+            for (var i = 0; i < error.error.messages.length; i++) {
+              console.error(error.error.messages[i]);
+            }
           }
           
           process.exit(1);
