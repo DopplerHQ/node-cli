@@ -16,38 +16,78 @@ Install the CLI with:
 npm install -g doppler-cli
 ```
 
-## Setting Credentials
+## CLI Commands
 
-Before starting to use the CLI, please create a `.doppler` file in your project. We **STRONGLY** recommend
-adding the `.doppler` file to your `.gitignore` file so it is not tracked by git. 
+Here is a list of commands the Doppler CLI offers:
 
-``` bash
-API_KEY = <DOPPLER_API_KEY>
-PIPELINE = <PIPELINE ID>
-ENVIRONMENT = <ENVIRONMENT NAME>
 ```
-
-You can also set the credentials as arguments
-
-``` bash
-doppler -k <DOPPLER_API_KEY> -p <PIPELINE ID> -e <ENVIRONMENT NAME> local "node server.js"
-```
-
-## Usage
-
-``` bash
 Usage: doppler [options] [command]
 
 Options:
-  -V, --version              output the version number
-  -k, --key <API KEY>        override API key from ".doppler" file
-  -e, --environment <NAME>   override environment from ".doppler" file
-  -p, --pipeline <ID>        override pipeline from ".doppler" file
-  -h, --help                 output usage information
+  -V, --version                                             output the version number
+  -k, --key <API KEY>                                       override API key from '.doppler' file
+  -h, --host <HOST URL>                                     override Doppler API host (default: "https://api.doppler.com")
+  -h, --help                                                output usage information
 
 Commands:
-  local [options] <COMMAND>  run your app locally
-  download <PATH>            download an environment's dotenv file
+  
+  config                                                    view config variables
+  config:set <name> <value>                                 set config variables
+  config:unset <name>                                       set config variables
+  
+  local [options] <COMMAND>                                 run your app locally
+  
+  workplace [options]                                       workplace information
+  workplace:update [options]                                update workplace
+  
+  logs [options]                                            workplace activity logs
+  logs:view [options] <id>                                  specific workplace activity log
+  
+  pipelines [options]                                       list of pipelines
+  pipelines:create [options]                                create a new pipeline
+  pipelines:delete [options] <id>                           delete the pipeline
+  pipelines:view [options] <id>                             pipeline information
+  pipelines:update [options] <id>                           update a pipeline
+  
+  stages [options]                                          list of a pipelines's stages
+  stages:view [options] <i>                                 stage information
+  stages:variables [options] <id>                           stage's default variables
+  stages:variables:one [options] <id>                       stage's specific default variable
+  stages:variables:set [options] <id> <name> <value>        set stage's default variables
+  stages:variables:unset [options] <id> <name>              unset stage's default variables
+  
+  environments [options]                                    list of environments in pipeline
+  environments:create [options]                             create a new pipeline
+  environments:delete [options] <name>                      delete environment
+  environments:view [options] <name>                        environment information
+  environments:update [options] <name>                      update a environment
+  environments:logs [options] <environment>                 environment audit logs
+  environments:logs:rollback [options] <environment> <log>  rollback environment audit log
+  environments:logs:diff [options] <environment> <log>      diff of environment audit log
+  
+  variables [options]                                       view all variables in environment
+  variables:one [options] <name>                            view specific variable in environment
+  variables:download [options] <path>                       download an environment's dotenv file
+  variables:set [options] <name> <value>                    set variable in environment
+  variables:unset [options] <name>                          unset variable in environment
+  variables:ignore [options]                                view all ignored variables in environment
+  variables:ignore:set [options] <name>                     set variable to ignore in environment
+  variables:ignore:unset [options] <name>                   unset variable to ignore in environment
+  
+  links:dashboard                                           your Doppler dashboard
+  links:slack                                               join our Slack community
+  links:github                                              contribute to our open soure repos on Github
+  
+  update                                                    update the Doppler cli
+```
+
+
+## First Time Setup
+
+The first thing you will want to do is set your Doppler API key, which is found on the [API Key](https://doppler.com/workplace/api_key) page.
+
+``` bash
+doppler config:set key <YOUR DOPPLER API KEY>
 ```
 
 ## Run Locally
@@ -88,53 +128,6 @@ doppler local "python server.py" # python
 
 doppler local "ruby server.rb" # ruby
 ```
-
-
-## Download Dotenv
-
-You can download an environment's keys into a dotenv file with the `download` command.
-
-``` bash
-doppler download ./backup.env
-
-Options:
-  -h, --htaccess  set output file type to .htaccess for php
-  -h, --help      output usage information
-``` 
-
-### Output
-
-``` bash
-USER=richard
-S3_KEY=AKIAJCBLJXRPPC7Z7XYQ
-APP_NAME=video-stream
-GOOGLE_ID=1029428031429n14shg0hhodpq8.apps.googleusercontent.com
-REDIS_URL=redis://richard@anton.localhost:6379
-S3_SECRET=dyDcE2EQD68FeA0au41rJBhR+GdsmBtcjXhlw
-MONGODB_URI=mongodb://richard@localhost/video-stream
-SEGMENT_KEY=1AKshMoWK9owqlZWafhY6bOJP9o5DK
-DATABASE_URL=postgres://richard@anton.local:5432/video-stream
-CLOUDAMQP_URL=amqp://richard@anton.local
-COOKIES_SECRET=mfcfdgb2gaa3077598hgilj155ni38539550cb0dimbi1d60i28nbb579ci7if495c3bejbek8i1ab
-BUGSNAG_API_KEY=33d3587193a0f2fef7a27
-SENDGRID_API_KEY=SG.hQ46NBfgRqSfFyuK_3tIMg.HfKdKxhQN8yghwz6XTzqIcNv8d0kMWlmbkkFJA
-```
-
-### PHP Htaccess Format
-
-You can also download an environment's keys into a `.htaccess` file format for PHP users.
-
-``` bash
-doppler download ./backup.htaccess --htaccess
-```
-
-### Htaccess Output
-
-``` bash
-SetEnv USER "richard"
-SetEnv S3_KEY "AKIAJCBLJXRPPC7Z7XYQ"
-SetEnv APP_NAME "video-stream"
-``` 
 
 ## Extra Information
 
