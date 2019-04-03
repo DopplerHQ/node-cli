@@ -5,7 +5,7 @@ const chalk = require("chalk")
 
 
 function task_runner(program, environment, log, options) {    
-  program.api.environments.logs_rollback({
+  program.api.environments.logs_view({
     pipeline: parseInt(options.pipeline),
     environment,
     log
@@ -29,8 +29,8 @@ function task_runner(program, environment, log, options) {
 
 module.exports = function(program) {
   program
-    .command("environments:logs:rollback <environment> <log>")
-    .description("rollback environment audit log")
+    .command("environments:logs:view <environment> <log>")
+    .description("environment audit logs")
     .option("-p, --pipeline <id>", "pipeline id")
     .option("--json", "print in json format", false)
     .action(function(environment, log, options) {

@@ -1,5 +1,6 @@
 const striptags = require('striptags')
 const moment = require('moment')
+const chalk = require("chalk")
 
 
 function task_runner(program, argument, options) {    
@@ -9,12 +10,11 @@ function task_runner(program, argument, options) {
     if(options.json) {    
       console.log(response)
     } else {
-      const path = "/tmp/" + program.utils.random(15) + ".log"
       const log = response.log
       console.log([
-        "Log: " + log.id,
-        "Actor: " + log.user.name + " <" + log.user.email + ">",
-        "Date: " +  moment(log.created_at).format("ddd MMM d H:MA"),
+        chalk.bold.yellow("Log: " + log.id),
+        chalk.blue("Actor: " + log.user.name + " <" + log.user.email + ">"),
+        chalk.magenta("Date: " +  moment(log.created_at).format("ddd MMM d H:MA")),
         "",
         "\t" + striptags(log.text),
         "\n"
