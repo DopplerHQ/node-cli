@@ -20,7 +20,7 @@ npm install -g doppler-cli
 
 Here is a list of commands the Doppler CLI offers:
 
-```
+``` text
 Usage: doppler [options] [command]
 
 Options:
