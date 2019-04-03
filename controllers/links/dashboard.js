@@ -1,7 +1,7 @@
-const opn = require("opn")
+const open = require("open")
 
 function task_runner(program, argument, options) {
-  opn("https://doppler.com")
+  open("https://doppler.com")
 }
 
 
