@@ -1,5 +1,5 @@
 function task_runner(program, name, value, options) {  
-  variables = {}
+  const variables = {}
   variables[name] = value
   
   program.api.variables.set_variables({
@@ -12,7 +12,7 @@ function task_runner(program, name, value, options) {
     } else {
       console.table(Object.keys(response.variables).map(function(name) {
         return {
-          name: name,
+          name,
           value: response.variables[name].raw,
           computed: response.variables[name].computed
         }

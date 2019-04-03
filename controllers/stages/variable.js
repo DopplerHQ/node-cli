@@ -1,6 +1,6 @@
-function task_runner(program, argument, options) {  
+function task_runner(program, stage, options) {  
   program.api.stages.variable({
-    stage: argument,
+    stage,
     pipeline: parseInt(options.pipeline),
     name: options.name
   }).then(function(response) {

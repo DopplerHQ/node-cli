@@ -1,5 +1,5 @@
 const request = require("request-promise")
-const chalk = require('chalk')
+const chalk = require("chalk")
 
 
 module.exports = function(program) {

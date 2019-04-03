@@ -1,4 +1,4 @@
- opn = require('opn')
+const opn = require("opn")
 
 function task_runner(program, argument, options) {
   opn("https://doppler.com")

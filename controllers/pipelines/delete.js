@@ -1,4 +1,4 @@
-function task_runner(program, argument) {
+function task_runner(program, argument, options) {
   program.api.pipelines.delete({
     pipeline: argument
   }).then(function(response) {
@@ -16,7 +16,7 @@ module.exports = function(program) {
     .command("pipelines:delete <id>")
     .description("delete the pipeline")
     .option("--json", "print in json format", false)
-    .action(function(argument) {
-      task_runner(program, argument)
+    .action(function(argument, options) {
+      task_runner(program, argument, options)
     });
 }

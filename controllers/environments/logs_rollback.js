@@ -1,13 +1,13 @@
-const striptags = require('striptags')
-const moment = require('moment')
+const striptags = require("striptags")
+const moment = require("moment")
 const fs = require("fs")
 
 
 function task_runner(program, environment, log, options) {    
   program.api.environments.logs_rollback({
     pipeline: parseInt(options.pipeline),
-    environment: environment,
-    log: log
+    environment,
+    log
   }).then(function(response) {
     if(options.json) {    
       console.log(response)

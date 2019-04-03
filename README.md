@@ -90,6 +90,13 @@ The first thing you will want to do is set your Doppler API key, which is found 
 doppler config:set key <YOUR DOPPLER API KEY>
 ```
 
+You may also want to set a default pipeline and environment.
+
+``` bash
+doppler config:set pipeline 110
+doppler config:set environment dev_primary
+```
+
 ## Run Locally
 
 The cli can inject your Doppler environments keys through the `local` command. Your
@@ -100,7 +107,6 @@ languages and programs.**
 doppler local "node server.js"
 
 Options:
-  -d, --dotenv <DOTENV FILEPATH>    pull local keys to track from your '.env' file (default: ".env")
   -f, --fallback <DOTENV FILEPATH>  writes to this file on boot and reads from it when you loose connection to the Doppler API.
   -h, --help                        output usage information
 ``` 

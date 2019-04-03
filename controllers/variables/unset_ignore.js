@@ -12,7 +12,7 @@ function task_runner(program, name, options) {
     } else {
       console.table(response.ignore.map(function(name) {
         return {
-          name: name
+          name
         }
       }))
     }

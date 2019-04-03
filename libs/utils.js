@@ -4,7 +4,7 @@ const dotenv = require("dotenv")
 const spawn = require("exec-sh")
 const doppler = require("doppler-client")
 const hasher = require("random-hash")
-const chalk = require('chalk')
+const chalk = require("chalk")
 
 
 module.exports = function(program) {

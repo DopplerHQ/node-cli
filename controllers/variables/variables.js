@@ -8,7 +8,7 @@ function task_runner(program, options) {
     } else {
       console.table(Object.keys(response.variables).map(function(name) {
         return {
-          name: name,
+          name,
           value: response.variables[name].raw,
           computed: response.variables[name].computed
         }

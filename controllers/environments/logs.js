@@ -3,10 +3,10 @@ const moment = require('moment')
 const fs = require("fs")
 
 
-function task_runner(program, argument, options) {    
+function task_runner(program, environment, options) {    
   program.api.environments.logs({
     pipeline: parseInt(options.pipeline),
-    environment: argument
+    environment
   }).then(function(response) {
     if(options.json) {    
       console.log(response)

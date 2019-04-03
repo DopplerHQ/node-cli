@@ -1,17 +1,17 @@
-const striptags = require('striptags')
-const moment = require('moment')
+const striptags = require("striptags")
+const moment = require("moment")
 const fs = require("fs")
 
 
 function write_file(program, log, lookup) {
-  diff = log.diff.sort(function(a, b) {
+  const diff = log.diff.sort(function(a, b) {
     const a_value = a.name || a[lookup] || a.added || a.removed
     const b_value = b.name || b[lookup] || a.added || a.removed
     return a_value.localeCompare(b_value)
   })
     
   return Promise.map(diff, function(line) {
-    body = line[lookup] || ""
+    const body = line[lookup] || ""
     
     if(line.name) {
       body = line.name + " = " + body 
@@ -27,8 +27,8 @@ function write_file(program, log, lookup) {
 
 function task_runner(program, environment, log, options) {    
   program.api.environments.logs_view({
-    log: log,
-    environment: environment,
+    log,
+    environment,
     pipeline: parseInt(options.pipeline)
   }).then(function(response) {
     if(options.json) {    

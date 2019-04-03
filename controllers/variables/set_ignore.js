@@ -1,5 +1,5 @@
 function task_runner(program, name, options) {  
-  variables = {}
+  const variables = {}
   variables[name] = true
   
   program.api.variables.set_ignore({
@@ -12,7 +12,7 @@ function task_runner(program, name, options) {
     } else {
       console.table(response.ignore.map(function(name) {
         return {
-          name: name
+          name
         }
       }))
     }
