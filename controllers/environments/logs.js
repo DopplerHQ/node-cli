@@ -1,5 +1,5 @@
-const striptags = require('striptags')
-const moment = require('moment')
+const striptags = require("striptags")
+const moment = require("moment")
 const fs = require("fs")
 
 

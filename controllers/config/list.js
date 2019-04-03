@@ -1,7 +1,7 @@
 const chalk = require("chalk")
 
 function task_runner(program, name, options) {  
-  const path = require('os').homedir() + "/.doppler"
+  const path = require("os").homedir() + "/.doppler"
   const config = program.utils.load_env(path) || {}
   const keys = Object.keys(config)
   

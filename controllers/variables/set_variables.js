@@ -3,7 +3,7 @@ function task_runner(program, name, value, options) {
   variables[name] = value
   
   program.api.variables.set_variables({
-    variables: variables,
+    variables,
     environment: options.environment,
     pipeline: parseInt(options.pipeline)
   }).then(function(response) {

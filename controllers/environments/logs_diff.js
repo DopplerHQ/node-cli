@@ -11,7 +11,7 @@ function write_file(program, log, lookup) {
   })
     
   return Promise.map(diff, function(line) {
-    const body = line[lookup] || ""
+    var body = line[lookup] || ""
     
     if(line.name) {
       body = line.name + " = " + body 

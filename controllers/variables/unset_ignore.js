@@ -1,5 +1,5 @@
 function task_runner(program, name, options) {  
-  variables = {}
+  const variables = {}
   variables[name] = false
   
   program.api.variables.set_ignore({
