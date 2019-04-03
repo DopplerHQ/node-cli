@@ -4,7 +4,7 @@ function task_runner(program, stage, name, options) {
   
   program.api.stages.set_variables({
     stage,
-    variables: variables,
+    variables,
     pipeline: parseInt(options.pipeline)
   }).then(function(response) {
     if(options.json) {    
