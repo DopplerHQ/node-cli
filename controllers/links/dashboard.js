@@ -8,7 +8,7 @@ function task_runner(program, argument, options) {
 module.exports = function(program) {
   program
     .command("links:dashboard")
-    .description("your Doppler dashboard")
+    .description("open the Doppler dashboard in your browser")
     .action(function(argument, options) {
       task_runner(program, argument, options)
     });

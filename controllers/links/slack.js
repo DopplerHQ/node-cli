@@ -8,7 +8,7 @@ function task_runner(program, argument, options) {
 module.exports = function(program) {
   program
     .command("links:slack")
-    .description("join our Slack community")
+    .description("join our Slack community in your browser")
     .action(function(argument, options) {
       task_runner(program, argument, options)
     });

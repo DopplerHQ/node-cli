@@ -8,7 +8,7 @@ function task_runner(program, argument, options) {
 module.exports = function(program) {
   program
     .command("links:github")
-    .description("contribute to our open soure repos on Github")
+    .description("contribute to our open soure repos on Github in your browser")
     .action(function(argument, options) {
       task_runner(program, argument, options)
     });
