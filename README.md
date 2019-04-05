@@ -24,61 +24,64 @@ Here is a list of commands the Doppler CLI offers:
 Usage: doppler [options] [command]
 
 Options:
-  -V, --version                                             output the version number
-  -k, --key <API KEY>                                       override API key from '.doppler' file
-  -h, --host <HOST URL>                                     override Doppler API host (default: "https://api.doppler.com")
-  -h, --help                                                output usage information
+  -V, --version                          output the version number
+  -k, --key <API KEY>                    override API key from '.doppler' file
+  -h, --host <HOST URL>                  override Doppler API host (default: "https://api.doppler.com")
+  -h, --help                             output usage information
 
 Commands:
   
-  config                                                    view config variables
-  config:set <name> <value>                                 set config variables
-  config:unset <name>                                       set config variables
+  config                                 view config variables
+  config:set <name> <value>              set config variables
+  config:unset <name>                    set config variables
   
-  local [options] <COMMAND>                                 run your app locally
+  local [options] <COMMAND>              run your app locally
   
-  workplace [options]                                       workplace information
-  workplace:update [options]                                update workplace
+  workplace [options]                    workplace information
+  workplace:update [options]             update workplace
   
-  logs [options]                                            workplace activity logs
-  logs:view [options] <id>                                  specific workplace activity log
+  logs [options]                         workplace activity logs
+  logs:view [options]                    specific workplace activity log
   
-  pipelines [options]                                       list of pipelines
-  pipelines:create [options]                                create a new pipeline
-  pipelines:delete [options] <id>                           delete the pipeline
-  pipelines:view [options] <id>                             pipeline information
-  pipelines:update [options] <id>                           update a pipeline
+  pipelines [options]                    list of pipelines
+  pipelines:create [options]             create a new pipeline
+  pipelines:delete [options]             delete the pipeline
+  pipelines:view [options]               pipeline information
+  pipelines:update [options]             update a pipeline
   
-  stages [options]                                          list of a pipelines's stages
-  stages:view [options] <i>                                 stage information
-  stages:variables [options] <id>                           stage's default variables
-  stages:variables:one [options] <id>                       stage's specific default variable
-  stages:variables:set [options] <id> <name> <value>        set stage's default variables
-  stages:variables:unset [options] <id> <name>              unset stage's default variables
+  stages [options]                       list of a pipelines's stages
+  stages:view [options]                  stage information
+  stages:variables [options]             stage's default variables
+  stages:variables:one [options] <name>  stage's specific default variable
+  stages:variables:set [options]         set stage's default variables
+  stages:variables:unset [options]       unset stage's default variables
   
-  environments [options]                                    list of environments in pipeline
-  environments:create [options]                             create a new pipeline
-  environments:delete [options] <name>                      delete environment
-  environments:view [options] <name>                        environment information
-  environments:update [options] <name>                      update a environment
-  environments:logs [options] <environment>                 environment audit logs
-  environments:logs:rollback [options] <environment> <log>  rollback environment audit log
-  environments:logs:diff [options] <environment> <log>      diff of environment audit log
+  environments [options]                 list of environments in pipeline
+  environments:create [options]          create a new pipeline
+  environments:delete [options]          delete environment
+  environments:view [options]            environment information
+  environments:update [options]          update a environment
+  environments:logs [options]            environment audit logs
+  environments:logs:view [options]       specific environment audit log
+  environments:logs:rollback [options]   rollback environment audit log
+  environments:logs:diff [options]       diff of environment audit log
   
-  variables [options]                                       view all variables in environment
-  variables:one [options] <name>                            view specific variable in environment
-  variables:download [options] <path>                       download an environment's dotenv file
-  variables:set [options] <name> <value>                    set variable in environment
-  variables:unset [options] <name>                          unset variable in environment
-  variables:ignore [options]                                view all ignored variables in environment
-  variables:ignore:set [options] <name>                     set variable to ignore in environment
-  variables:ignore:unset [options] <name>                   unset variable to ignore in environment
+  variables [options]                    view all variables in environment
+  variables:one [options] <name>         view specific variable in environment
+  variables:download [options] <path>    download an environment's dotenv file
+  variables:set [options]                set variable in environment
+  variables:unset [options]              unset variable in environment
+  variables:ignore [options]             view all ignored variables in environment
+  variables:ignore:set [options]         set variable to ignore in environment
+  variables:ignore:unset [options]       unset variable to ignore in environment
   
-  links:dashboard                                           your Doppler dashboard
-  links:slack                                               join our Slack community
-  links:github                                              contribute to our open soure repos on Github
+  links:dashboard                        open the Doppler dashboard in your browser
+  links:slack                            join our Slack community in your browser
+  links:github                           contribute to our open soure repos on Github in your browser
   
-  update                                                    update the Doppler cli
+  update                                 update the Doppler cli
+  
+
 ```
 
 
