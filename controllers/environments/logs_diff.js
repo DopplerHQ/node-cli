@@ -25,10 +25,10 @@ function write_file(program, log, lookup) {
   })
 }
 
-function task_runner(program, environment, log, options) {    
+function task_runner(program, options) {    
   program.api.environments.logs_view({
-    log,
-    environment,
+    log: options.log,
+    environment: options.environment,
     pipeline: parseInt(options.pipeline)
   }).then(function(response) {
     if(options.json) {    
@@ -58,11 +58,11 @@ function task_runner(program, environment, log, options) {
 
 module.exports = function(program) {
   program
-    .command("environments:logs:diff <environment> <log>")
+    .command("environments:logs:diff")
     .description("diff of environment audit log")
+    .option("-l, --log <id>", "log id")
     .option("-p, --pipeline <id>", "pipeline id")
+    .option("-e, --environment <name>", "environment name")
     .option("--json", "print in json format", false)
-    .action(function(environment, log, options) {
-      task_runner(program, environment, log, options)
-    });
+    .action(task_runner.bind(null, program));
 }

@@ -1,6 +1,6 @@
-function task_runner(program, argument, options) {  
+function task_runner(program, options) {  
   program.api.pipelines.view({
-    pipeline: argument
+    pipeline: parseInt(options.pipeline)
   }).then(function(response) {
     if(options.json) {    
       console.log(response)
@@ -13,10 +13,9 @@ function task_runner(program, argument, options) {
 
 module.exports = function(program) {
   program
-    .command("pipelines:view <id>")
+    .command("pipelines:view")
     .description("pipeline information")
+    .option("-p, --pipeline <id>", "pipeline id")
     .option("--json", "print in json format", false)
-    .action(function(argument, options) {
-      task_runner(program, argument, options)
-    });
+    .action(task_runner.bind(null, program));
 }

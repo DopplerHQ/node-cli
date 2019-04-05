@@ -3,9 +3,9 @@ const moment = require('moment')
 const chalk = require("chalk")
 
 
-function task_runner(program, argument, options) {    
+function task_runner(program, options) {    
   program.api.logs.view({
-    log: argument
+    log: options.log
   }).then(function(response) {
     if(options.json) {    
       console.log(response)
@@ -26,10 +26,9 @@ function task_runner(program, argument, options) {
 
 module.exports = function(program) {
   program
-    .command("logs:view <id>")
+    .command("logs:view")
     .description("specific workplace activity log")
+    .option("-l, --log <id>", "log id")
     .option("--json", "print in json format", false)
-    .action(function(argument, options) {
-      task_runner(program, argument, options)
-    });
+    .action(task_runner.bind(null, program));
 }

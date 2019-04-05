@@ -5,6 +5,10 @@ function task_runner(program, options) {
   }).then(function(response) {
     if(options.json) {    
       console.log(response)
+    } else if(options.plain) {
+      console.log(Object.keys(response.variables).map(function(name) {
+        return name + "=" + response.variables[name].raw;
+      }).join("\n"))
     } else {
       console.table(Object.keys(response.variables).map(function(name) {
         return {
@@ -25,7 +29,6 @@ module.exports = function(program) {
     .option("-p, --pipeline <id>", "pipeline id")
     .option("-e, --environment <name>", "environment name")
     .option("--json", "print in json format", false)
-    .action(function(options) {
-      task_runner(program, options)
-    });
+    .option("--plain", "print with the variables without formatting", false)
+    .action(task_runner.bind(null, program));
 }

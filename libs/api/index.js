@@ -71,11 +71,21 @@ module.exports = function(program) {
         
         // Make Request
         return request(request_data).catch(function(error) {
-          if(typeof error.error == "string") {
-            console.error(chalk.red(error.error))
+          if(error.error.code == "ENOTFOUND") {
+            console.error(chalk.red("ERROR: Could not reach \"" + program.host + "\". Please make sure you are connected to the internet."))
+          } else if(typeof error.error == "string") {
+            console.error("ERROR: " + chalk.red(error.error))
           } else {
             for (var i = 0; i < error.error.messages.length; i++) {
-              console.error(chalk.red(error.error.messages[i]));
+              console.error(chalk.red("ERROR: " + error.error.messages[i]));
+            }
+            
+            for (var i = 0; i < program.args.length; i++) {
+              if(typeof program.args[i].help != "function") { continue }
+              
+              console.log("")
+              program.args[i].help()
+              break
             }
           }
           

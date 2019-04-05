@@ -19,7 +19,5 @@ module.exports = function(program) {
     .option("-n, --name <name>", "name of workplace")
     .option("-b, --billing <email>", "billing email")
     .option("--json", "print in json format", false)
-    .action(function(options) {
-      task_runner(program, options)
-    })
+    .action(task_runner.bind(null, program));
 }

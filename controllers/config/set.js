@@ -28,7 +28,5 @@ module.exports = function(program) {
   program
     .command("config:set <name> <value>")
     .description("set config variables")
-    .action(function(name, value, options) {
-      task_runner(program, name, value, options)
-    });
+    .action(task_runner.bind(null, program));
 }

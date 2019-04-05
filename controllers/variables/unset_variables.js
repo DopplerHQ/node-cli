@@ -1,6 +1,16 @@
-function task_runner(program, name, options) {  
+function task_runner() {  
+  const args = Array.from(arguments) 
+  const program = args.splice(0, 1)[0]
+  const options = args.splice(-1)[0]
   const variables = {}
-  variables[name] = null
+  
+  if(args.length == 0) {
+    return options.help()
+  }
+  
+  for(var i=0; i < args.length; i++) {
+    variables[args[i]] = null
+  }
   
   program.api.variables.set_variables({
     variables,
@@ -24,12 +34,18 @@ function task_runner(program, name, options) {
 
 module.exports = function(program) {
   program
-    .command("variables:unset <name>")
+    .command("variables:unset")
     .description("unset variable in environment")
     .option("-p, --pipeline <id>", "pipeline id")
     .option("-e, --environment <name>", "environment name")
     .option("--json", "print in json format", false)
-    .action(function(name, options) {
-      task_runner(program, name, options)
+    .action(task_runner.bind(null, program))
+    .on('--help', function() {
+      console.log('');
+      console.log('Examples:');
+      console.log('');
+      console.log('  $ doppler variables:unset KEY');
+      console.log('  $ doppler variables:unset KEY_1 KEY_2 ...');
+      console.log('');
     });
 }

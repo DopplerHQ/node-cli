@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const program = require("commander")
+const program = require('commander')
 const package = require("./package")
 require('console.table')
 
@@ -8,6 +8,7 @@ require('console.table')
 global.Promise = require("bluebird")
 
 // Create CLI
+program.name = "doppler"
 program
   .version(package.version)
   .option("-k, --key <API KEY>", "override API key from '.doppler' file")

@@ -25,7 +25,5 @@ module.exports = function(program) {
   program
     .command("config")
     .description("view config variables")
-    .action(function(name, options) {
-      task_runner(program, name, options)
-    });
+    .action(task_runner.bind(null, program));
 }

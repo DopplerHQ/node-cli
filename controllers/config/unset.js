@@ -28,7 +28,5 @@ module.exports = function(program) {
   program
     .command("config:unset <name>")
     .description("set config variables")
-    .action(function(name, options) {
-      task_runner(program, name, options)
-    });
+    .action(task_runner.bind(null, program));
 }

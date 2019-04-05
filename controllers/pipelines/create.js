@@ -19,7 +19,5 @@ module.exports = function(program) {
     .option("-n, --name <name>", "name of pipeline")
     .option("-d, --description <description>", "description of pipeline")
     .option("--json", "print in json format", false)
-    .action(function(argument) {
-      task_runner(program, argument)
-    });
+    .action(task_runner.bind(null, program));
 }

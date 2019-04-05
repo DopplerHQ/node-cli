@@ -1,6 +1,6 @@
-function task_runner(program, stage, options) {  
+function task_runner(program, options) {  
   program.api.stages.view({
-    stage,
+    stage: options.stage,
     pipeline: parseInt(options.pipeline)
   }).then(function(response) {
     if(options.json) {    
@@ -14,11 +14,10 @@ function task_runner(program, stage, options) {
 
 module.exports = function(program) {
   program
-    .command("stages:view <id or slug>")
+    .command("stages:view")
     .description("stage information")
     .option("-p, --pipeline <id>", "pipeline id")
+    .option("-s, --stage <id or slug>", "stage id or slug")
     .option("--json", "print in json format", false)
-    .action(function(argument, options) {
-      task_runner(program, argument, options)
-    });
+    .action(task_runner.bind(null, program));
 }

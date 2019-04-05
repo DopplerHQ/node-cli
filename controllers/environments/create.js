@@ -31,7 +31,5 @@ module.exports = function(program) {
     .option("-s, --stage <id or slug>", "stage id or slug")
     .option("-b, --blank", "do not populate with defaults variables")
     .option("--json", "print in json format", false)
-    .action(function(options) {
-      task_runner(program, options)
-    });
+    .action(task_runner.bind(null, program));
 }

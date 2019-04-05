@@ -4,11 +4,11 @@ const fs = require("fs")
 const chalk = require("chalk")
 
 
-function task_runner(program, environment, log, options) {    
+function task_runner(program, options) {    
   program.api.environments.logs_rollback({
     pipeline: parseInt(options.pipeline),
-    environment,
-    log
+    log: options.log,
+    environment: options.environment
   }).then(function(response) {
     if(options.json) {    
       console.log(response)
@@ -29,11 +29,11 @@ function task_runner(program, environment, log, options) {
 
 module.exports = function(program) {
   program
-    .command("environments:logs:rollback <environment> <log>")
+    .command("environments:logs:rollback")
     .description("rollback environment audit log")
+    .option("-l, --log <id>", "log id")
     .option("-p, --pipeline <id>", "pipeline id")
+    .option("-e, --environment <name>", "environment name")
     .option("--json", "print in json format", false)
-    .action(function(environment, log, options) {
-      task_runner(program, environment, log, options)
-    });
+    .action(task_runner.bind(null, program));
 }

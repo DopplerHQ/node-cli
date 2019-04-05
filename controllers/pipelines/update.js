@@ -1,6 +1,6 @@
-function task_runner(program, argument, options) {  
+function task_runner(program, options) {  
   program.api.pipelines.update({
-    pipeline: argument,
+    pipeline: parseInt(options.pipeline),
     name: options.name,
     description: options.description
   }).then(function(response) {
@@ -15,12 +15,11 @@ function task_runner(program, argument, options) {
 
 module.exports = function(program) {
   program
-    .command("pipelines:update <id>")
+    .command("pipelines:update")
     .description("update a pipeline")
+    .option("-p, --pipeline <id>", "pipeline id")
     .option("-n, --name <name>", "name of pipeline")
     .option("-d, --description <description>", "description of pipeline")
     .option("--json", "print in json format", false)
-    .action(function(argument, options) {
-      task_runner(program, argument, options)
-    })
+    .action(task_runner.bind(null, program));
 }

@@ -17,7 +17,5 @@ module.exports = function(program) {
     .description("list of a pipelines's stages")
     .option("-p, --pipeline <id>", "pipeline id")
     .option("--json", "print in json format", false)
-    .action(function(options) {
-      task_runner(program, options)
-    });
+    .action(task_runner.bind(null, program));
 }

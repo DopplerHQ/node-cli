@@ -14,7 +14,5 @@ module.exports = function(program) {
     .command("workplace")
     .description("workplace information")
     .option("--json", "print in json format", false)
-    .action(function(argument) {
-      task_runner(program, argument)
-    });
+    .action(task_runner.bind(null, program));
 }

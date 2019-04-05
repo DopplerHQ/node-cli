@@ -4,7 +4,7 @@ const fs = require("fs")
 const chalk = require("chalk")
 
 
-function task_runner(program, options) {    
+function task_runner(program, options) {  
   program.api.logs.list().then(function(response) {
     if(options.json) {    
       console.log(response)
@@ -29,7 +29,5 @@ module.exports = function(program) {
     .command("logs")
     .description("workplace activity logs")
     .option("--json", "print in json format", false)
-    .action(function(options) {
-      task_runner(program, options)
-    });
+    .action(task_runner.bind(null, program));
 }

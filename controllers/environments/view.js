@@ -1,6 +1,6 @@
-function task_runner(program, argument, options) {  
+function task_runner(program, options) {  
   const query = {
-    environment: argument,
+    environment: options.environment,
     pipeline: parseInt(options.pipeline)
   }
   
@@ -23,11 +23,10 @@ function task_runner(program, argument, options) {
 
 module.exports = function(program) {
   program
-    .command("environments:view <name>")
+    .command("environments:view")
     .description("environment information")
     .option("-p, --pipeline <id>", "pipeline id")
+    .option("-e, --environment <name>", "environment name")
     .option("--json", "print in json format", false)
-    .action(function(argument, options) {
-      task_runner(program, argument, options)
-    });
+    .action(task_runner.bind(null, program));
 }

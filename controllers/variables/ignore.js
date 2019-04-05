@@ -23,7 +23,5 @@ module.exports = function(program) {
     .option("-p, --pipeline <id>", "pipeline id")
     .option("-e, --environment <name>", "environment name")
     .option("--json", "print in json format", false)
-    .action(function(options) {
-      task_runner(program, options)
-    });
+    .action(task_runner.bind(null, program));
 }

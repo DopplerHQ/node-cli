@@ -4,10 +4,10 @@ const fs = require("fs")
 const chalk = require("chalk")
 
 
-function task_runner(program, environment, options) {    
+function task_runner(program, options) {    
   program.api.environments.logs({
     pipeline: parseInt(options.pipeline),
-    environment
+    environment: options.environment
   }).then(function(response) {
     if(options.json) {    
       console.log(response)
@@ -29,11 +29,10 @@ function task_runner(program, environment, options) {
 
 module.exports = function(program) {
   program
-    .command("environments:logs <environment>")
+    .command("environments:logs")
     .description("environment audit logs")
     .option("-p, --pipeline <id>", "pipeline id")
+    .option("-e, --environment <name>", "environment name")
     .option("--json", "print in json format", false)
-    .action(function(argument, options) {
-      task_runner(program, argument, options)
-    });
+    .action(task_runner.bind(null, program));
 }

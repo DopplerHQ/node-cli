@@ -6,6 +6,8 @@ function task_runner(program, argument, options) {
   }).then(function(response) {
     if(options.json) {    
       console.log(response)
+    } else if(options.plain) {
+      console.log(response.value.raw)
     } else {
       console.table([{
         name: response.name,
@@ -24,7 +26,6 @@ module.exports = function(program) {
     .option("-p, --pipeline <id>", "pipeline id")
     .option("-e, --environment <name>", "environment name")
     .option("--json", "print in json format", false)
-    .action(function(argument, options) {
-      task_runner(program, argument, options)
-    });
+    .option("--plain", "print with the value without formatting", false)
+    .action(task_runner.bind(null, program));
 }

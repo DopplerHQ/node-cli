@@ -35,7 +35,5 @@ module.exports = function(program) {
     .description("list of environments in pipeline")
     .option("-p, --pipeline <id>", "pipeline id")
     .option("--json", "print in json format", false)
-    .action(function(argument) {
-      task_runner(program, argument)
-    });
+    .action(task_runner.bind(null, program));
 }
