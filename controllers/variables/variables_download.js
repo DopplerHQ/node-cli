@@ -1,5 +1,6 @@
 function task_runner(program, path, options) {  
-  program.utils.doppler(path)
+  options.fallback = path
+  program.utils.doppler(options)
 }
 
 
@@ -9,6 +10,5 @@ module.exports = function(program) {
     .description("download an environment's dotenv file")
     .option("-p, --pipeline <id>", "pipeline id")
     .option("-e, --environment <name>", "environment name")
-    .option("--json", "print in json format", false)
     .action(task_runner.bind(null, program));
 }

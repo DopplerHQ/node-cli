@@ -1,5 +1,5 @@
 function task_runner(program, argument, options) {  
-  const doppler = program.utils.doppler(options.fallback)
+  const doppler = program.utils.doppler(options)
   
   program.utils.runCommand(argument, {
     env: doppler.remote_keys
