@@ -17,8 +17,26 @@ module.exports = function(program) {
     })
   }
   
-  exports.doppler = function(data) {
+  exports.doppler = function(data={}) {
     const credentials = exports.load_credentials(data)
+    
+    if(credentials.pipeline == null) {
+      console.error(chalk.red(
+        "Please provide a pipline. You can also set a default with the following command:\n" +
+        "doppler config:set pipeline <PIPELINE ID>"
+      ))
+      
+      process.exit(1)
+    }
+    
+    if(credentials.environment == null) {
+      console.error(chalk.red(
+        "Please provide a environment. You can also set a default with the following command:\n" +
+        "doppler config:set environment <ENVIRONMENT NAME>"
+      ))
+      
+      process.exit(1)
+    }
     
     return doppler({
       api_key: credentials.api_key,
@@ -30,7 +48,7 @@ module.exports = function(program) {
     })
   }
   
-  exports.load_credentials = function(data) {
+  exports.load_credentials = function(data={}) {
     const path = require('os').homedir() + "/.doppler"
     const config = exports.load_env(path) || {}
     const api_key = program.key || config.key || null
@@ -41,24 +59,6 @@ module.exports = function(program) {
       console.error(chalk.red(
         "Please set your Doppler API Key with the following command:\n" +
         "doppler config:set key <YOUR DOPPLER API KEY>"
-      ))
-      
-      process.exit(1)
-    }
-    
-    if(pipeline == null) {
-      console.error(chalk.red(
-        "Please provide a pipline. You can also set a default with the following command:\n" +
-        "doppler config:set pipeline <PIPELINE ID>"
-      ))
-      
-      process.exit(1)
-    }
-    
-    if(environment == null) {
-      console.error(chalk.red(
-        "Please provide a environment. You can also set a default with the following command:\n" +
-        "doppler config:set environment <ENVIRONMENT NAME>"
       ))
       
       process.exit(1)
