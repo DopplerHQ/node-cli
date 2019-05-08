@@ -22,22 +22,25 @@ require("./libs")(program)
 // Register Controllers
 require("./controllers")(program)
 
+// Parse Arguments
+program.parse(process.argv);
 
-// Check Version Number
-request({
-  uri: "https://registry.npmjs.org/" + package.name,
-  json: true
-}).then(function(response) {
-  if(response["dist-tags"]["latest"] != package.version) {
-    console.error(chalk.green(
-      "An updated verion (" + response["dist-tags"]["latest"] + ") of the Doppler CLI is available:\n" +
-      "doppler update\n"
-    ))
-  }
-  
-  // Parse Arguments
-  program.parse(process.argv);
-  
-  // Show Help
-  if (!program.args.length) program.help();
-})
+// Show Help
+if(!program.args.length) {
+    
+  // Check Version Number
+  request({
+    uri: "https://registry.npmjs.org/" + package.name,
+    json: true
+  }).then(function(response) {
+    if(response["dist-tags"]["latest"] != package.version) {
+      console.error(chalk.green(
+        "An updated verion (" + response["dist-tags"]["latest"] + ") of the Doppler CLI is available:\n" +
+        "doppler update\n"
+      ))
+    }
+    
+    // Print Help
+    program.help();
+  })
+}
