@@ -2,7 +2,6 @@ const fs = require("fs")
 const path = require("path")
 const dotenv = require("dotenv")
 const spawn = require("exec-sh")
-const doppler = require("doppler-client")
 const hasher = require("random-hash")
 const chalk = require("chalk")
 
@@ -38,7 +37,7 @@ module.exports = function(program) {
       process.exit(1)
     }
     
-    return doppler({
+    return require("doppler-client")({
       api_key: credentials.api_key,
       pipeline: credentials.pipeline,
       environment: credentials.environment,
