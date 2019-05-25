@@ -15,7 +15,7 @@ function task_runner() {
   program.api.variables.set_ignore({
     names: variables,
     environment: options.environment,
-    pipeline: parseInt(options.pipeline)
+    pipeline: options.pipeline
   }).then(function(response) {
     if(options.json) {    
       console.log(response)

@@ -29,7 +29,7 @@ function task_runner(program, options) {
   program.api.environments.logs_view({
     log: options.log,
     environment: options.environment,
-    pipeline: parseInt(options.pipeline)
+    pipeline: options.pipeline
   }).then(function(response) {
     if(options.json) {    
       console.log(response)

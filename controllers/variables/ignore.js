@@ -1,7 +1,7 @@
 function task_runner(program, options) {  
   program.api.variables.variables({
     environment: options.environment,
-    pipeline: parseInt(options.pipeline)
+    pipeline: options.pipeline
   }).then(function(response) {
     if(options.json) {    
       console.log(response)

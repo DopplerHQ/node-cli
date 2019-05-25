@@ -1,12 +1,12 @@
 function task_runner(program, options) {    
   program.api.environments.create({
     name: options.name,
-    pipeline: parseInt(options.pipeline),
+    pipeline: options.pipeline,
     stage: options.stage,
     defaults: !options.blank
   }).then(function(response_environment) {
     return program.api.stages.view({
-      pipeline: parseInt(options.pipeline),
+      pipeline: options.pipeline,
       stage: response_environment.environment.stage
     }).then(function(response_stage) {
       response_environment.environment.stage = response_stage.stage.slug

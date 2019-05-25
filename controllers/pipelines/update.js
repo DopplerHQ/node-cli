@@ -1,6 +1,6 @@
 function task_runner(program, options) {  
   program.api.pipelines.update({
-    pipeline: parseInt(options.pipeline),
+    pipeline: options.pipeline,
     name: options.name,
     description: options.description
   }).then(function(response) {

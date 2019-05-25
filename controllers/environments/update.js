@@ -1,7 +1,7 @@
 function task_runner(program, options) {  
   const query = {
     environment: options.environment,
-    pipeline: parseInt(options.pipeline),
+    pipeline: options.pipeline,
     name: options.name
   }
   

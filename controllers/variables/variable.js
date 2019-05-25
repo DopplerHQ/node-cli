@@ -1,6 +1,6 @@
 function task_runner(program, argument, options) {  
   program.api.variables.variable({
-    pipeline: parseInt(options.pipeline),
+    pipeline: options.pipeline,
     environment: options.environment,
     name: argument
   }).then(function(response) {

@@ -6,7 +6,7 @@ const chalk = require("chalk")
 
 function task_runner(program, options) {    
   program.api.environments.logs_rollback({
-    pipeline: parseInt(options.pipeline),
+    pipeline: options.pipeline,
     log: options.log,
     environment: options.environment
   }).then(function(response) {

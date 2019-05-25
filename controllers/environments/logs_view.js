@@ -6,7 +6,7 @@ const chalk = require("chalk")
 
 function task_runner(program, options) {    
   program.api.environments.logs_view({
-    pipeline: parseInt(options.pipeline),
+    pipeline: options.pipeline,
     environment: options.environment,
     log: options.log
   }).then(function(response) {

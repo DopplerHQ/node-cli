@@ -1,6 +1,6 @@
 function task_runner(program, options) {
   const query = {
-    pipeline: parseInt(options.pipeline)
+    pipeline: options.pipeline
   }
   
   program.api.stages.list(query).then(function(response) {

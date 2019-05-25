@@ -1,6 +1,6 @@
 function task_runner(program, options) {
   program.api.environments.delete({
-    pipeline: parseInt(options.pipeline),
+    pipeline: options.pipeline,
     environment: options.environment
   }).then(function(response) {
     if(options.json) {    
