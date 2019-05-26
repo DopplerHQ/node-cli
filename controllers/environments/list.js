@@ -1,24 +1,6 @@
 function task_runner(program, options) {
-  const query = {
+  program.api.environments.list({
     pipeline: options.pipeline
-  }
-  
-  program.api.stages.list(query).then(function(response) {
-    const stages = response["stages"]
-    var stages_dict = {}
-    
-    for(var i = 0; i < stages.length; i++) {
-      const stage = stages[i]
-      stages_dict[stage.id] = stage.slug
-    } 
-    return program.api.environments.list(query).then(function(response) {
-      response.environments = response.environments.map(function(environment) {
-        environment.stage = stages_dict[environment.stage]
-        return environment
-      })
-      
-      return response
-    })
   }).then(function(response) {    
     if(options.json) {    
       console.log(response)

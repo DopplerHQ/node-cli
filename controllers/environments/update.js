@@ -1,17 +1,8 @@
 function task_runner(program, options) {  
-  const query = {
+  program.api.environments.update({
     environment: options.environment,
     pipeline: options.pipeline,
     name: options.name
-  }
-  
-  program.api.environments.update(query).then(function(response_environment) {
-    query.stage = response_environment.environment.stage
-    
-    return program.api.stages.view(query).then(function(response_stage) {
-      response_environment.environment.stage = response_stage.stage.slug
-      return response_environment
-    })
   }).then(function(response) {    
     if(options.json) {    
       console.log(response)

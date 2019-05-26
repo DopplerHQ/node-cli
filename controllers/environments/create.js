@@ -4,14 +4,6 @@ function task_runner(program, options) {
     pipeline: options.pipeline,
     stage: options.stage,
     defaults: !options.blank
-  }).then(function(response_environment) {
-    return program.api.stages.view({
-      pipeline: options.pipeline,
-      stage: response_environment.environment.stage
-    }).then(function(response_stage) {
-      response_environment.environment.stage = response_stage.stage.slug
-      return response_environment
-    })
   }).then(function(response) {    
     if(options.json) {    
       console.log(response)
