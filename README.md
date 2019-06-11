@@ -13,7 +13,7 @@ applications written for **only** server-side code.
 Install the CLI with:
 
 ``` bash
-npm install -g doppler-cli
+npm install -g @dopplerhq/cli
 ```
 
 ## CLI Commands

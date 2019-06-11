@@ -1,5 +1,5 @@
 function task_runner(program, argument, options) {  
-  program.utils.runCommand("npm install --global doppler-cli")
+  program.utils.runCommand("npm install --global @dopplerhq/cli")
 }
 
 
