@@ -37,7 +37,7 @@ module.exports = function(program) {
       process.exit(1)
     }
     
-    return require("doppler-client")({
+    return require("@dopplerhq/client")({
       api_key: credentials.api_key,
       pipeline: credentials.pipeline,
       environment: credentials.environment,

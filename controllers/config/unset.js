@@ -15,6 +15,8 @@ function task_runner(program, name, options) {
     ))
   }
   
+  if(options.noprint) { return } 
+  
   console.table(keys.map(function(name) {
     return {
       name,
@@ -28,5 +30,6 @@ module.exports = function(program) {
   program
     .command("config:unset <name>")
     .description("set config variables")
+    .option("--noprint", "do not print response", false)
     .action(task_runner.bind(null, program));
 }
