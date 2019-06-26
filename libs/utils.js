@@ -96,7 +96,7 @@ module.exports = function(program) {
   exports.runCommand = function(cmd, options={}) { 
     function exit_handler(exitCode) {
       this.kill();
-      process.exit(exitCode || 1);
+      process.exit(exitCode || 0);
     }
      
     try {
