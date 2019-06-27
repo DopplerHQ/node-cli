@@ -110,9 +110,10 @@ module.exports = function(program) {
       const child = spawn(cmd, options)
       
       process.on("exit", exit_handler.bind(child));
-      process.on("SIGINT", exit_handler.bind(child, 2));
-      process.on("uncaughtException", exit_handler.bind(child, 99));
-      child.on("error", exit_handler.bind(child, 99));
+      process.on("SIGINT", exit_handler.bind(child));
+      process.on("uncaughtException", exit_handler.bind(child));
+      child.on("exit", exit_handler.bind(child));
+      child.on("error", exit_handler.bind(child));
       
       return child
   
