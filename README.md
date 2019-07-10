@@ -110,12 +110,12 @@ languages and programs.**
 doppler local "node server.js"
 
 Options:
-  -f, --fallback <DOTENV FILEPATH>  writes to this file on boot and reads from it when you loose connection to the Doppler API.
+  -f, --fallback <DOTENV FILEPATH>  writes to this file on boot and reads from it when you lose connection to the Doppler API.
   -h, --help                        output usage information
 ``` 
 
 ### Fallback Option
-When the fallback option is enabled, the CLI will write to a `.env` file on boot and reads from it when you loose connection to the Doppler API.
+When the fallback option is enabled, the CLI will write to a `.env` file on boot and reads from it when you lose connection to the Doppler API.
 
 ``` bash
 doppler local "python server.py" --fallback="./fallback.env"
