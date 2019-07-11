@@ -14,6 +14,7 @@ module.exports = function(program) {
     const legacy_config_path = path.join(os.homedir(), ".doppler")
     if(fs.existsSync(legacy_config_path)) {
       _config = { "*": program.utils.load_env(legacy_config_path) } 
+      exports.write(_config)
       fs.unlinkSync(legacy_config_path)
       return _config
     }
