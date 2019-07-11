@@ -101,7 +101,7 @@ module.exports = function(program) {
      
     try {
       options.cwd = process.cwd()
-      options.env = options.env || {}
+      options.env = Object.assign({}, process.env, options.env || {})
       options.env.PATH = process.env.PATH
       options.env.PS1 = process.env.PS1
       options.env.HOME = process.env.HOME
