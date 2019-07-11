@@ -1,23 +1,16 @@
 const chalk = require("chalk")
 
 function task_runner(program, name, options) {  
-  const path = require("os").homedir() + "/.doppler"
-  const config = program.utils.load_env(path) || {}
-  const keys = Object.keys(config)
+  const config = program.config.printable()
   
-  if(keys.length === 0) {
+  if(config.length === 0) {
     return console.log(chalk.magenta(
       "You do not have any configs set. You can set a variable with the command:\n" +
       "doppler config:set <KEY> <VALUE>"
     ))
   }
   
-  console.table(keys.map(function(name) {
-    return {
-      name,
-      value: config[name]
-    }
-  }))
+  console.table(config)
 }
 
 

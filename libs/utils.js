@@ -1,5 +1,6 @@
 const fs = require("fs")
 const path = require("path")
+const os = require('os')
 const dotenv = require("dotenv")
 const spawn = require("exec-sh")
 const hasher = require("random-hash")
@@ -48,8 +49,7 @@ module.exports = function(program) {
   }
   
   exports.load_credentials = function(data={}) {
-    const path = require('os').homedir() + "/.doppler"
-    const config = exports.load_env(path) || {}
+    const config = program.config.filtered()
     const api_key = program.key || config.key || null
     const pipeline = data.pipeline || config.pipeline || null
     const environment = data.environment || config.environment || null
@@ -67,7 +67,7 @@ module.exports = function(program) {
   }
   
   exports.load_env = function(file_path) {
-    const env = dotenv.config({ 
+    var env = dotenv.config({ 
       path: path.resolve(process.cwd(), file_path) 
     })
     
