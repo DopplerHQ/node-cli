@@ -11,9 +11,16 @@ function task_runner() {
     return options.help()
   }
   
-  for(var i=0; i < args.length; i++) {
-    const variable = args[i].split("=")
-    config[variable[0]] = variable[1] || "" 
+  // Backwards Compatibility: <KEY> <VALUE>
+  if(args.length == 2 && args[0].indexOf("=") == -1) {
+    config[args[0]] = args[1] || "" 
+  
+  // New Way: <KEY>=<VALUE> <KEY>=<VALUE> ...
+  } else {
+    for(var i=0; i < args.length; i++) {
+      const variable = args[i].split("=")
+      config[variable[0]] = variable[1] || "" 
+    }
   }
  
   program.utils.write_env(config, path)
