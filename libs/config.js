@@ -13,14 +13,18 @@ module.exports = function(program) {
     // Migrate legacy config if needed
     const legacy_config_path = path.join(os.homedir(), ".doppler")
     if(fs.existsSync(legacy_config_path)) {
-      const config = { "*": program.utils.load_env(legacy_config_path) } 
+      _config = { "*": program.utils.load_env(legacy_config_path) } 
       fs.unlinkSync(legacy_config_path)
-      return config
+      return _config
     }
     
     // Load existing config
     if(_config !== null) { return _config }
+    
+    // Set Config Default Value
+    _config = { "*": {} }
 
+    // Load Config from File
     if(fs.existsSync(config_path)) {      
       try {
         _config = require(config_path)
@@ -28,7 +32,7 @@ module.exports = function(program) {
         console.error(chalk.red("Failed to parse config from disk with path " + config_path))
       }
     }
-    
+
     return _config
   }
   
