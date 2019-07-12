@@ -37,9 +37,15 @@ module.exports = function(program) {
     return _config
   }
 
-  exports.printable = function() {
+  exports.printable = function(all=false, input_path=".") {
+    const current_path = path.resolve(input_path)
     const config = exports.load()
     const entries = []
+    const scope_paths = new Set(Object.keys(config).filter(function(path) {
+      return path === "*" || current_path.indexOf(path) == 0
+    }).sort(function(a, b) {
+      return b.length - a.length
+    }))
 
     for (var scope in config) {
       if(!config.hasOwnProperty(scope)) { continue }
@@ -47,11 +53,13 @@ module.exports = function(program) {
       for (var name in config[scope]) {
         if(!config[scope].hasOwnProperty(name)) { continue }
 
-        entries.push({
-          name,
-          value: config[scope][name],
-          scope: scope
-        })
+        if(all || scope_paths.has(scope)) {
+          entries.push({
+            name,
+            value: config[scope][name],
+            scope: scope
+          })
+        }
       }
     }
 
@@ -61,19 +69,16 @@ module.exports = function(program) {
   exports.filtered = function(input_path=".") {
     const current_path = path.resolve(input_path)
     const config = exports.load()
-    const config_paths = Object.keys(config).filter(function(path) {
+    const scoped_configs = Object.keys(config).filter(function(path) {
       return path !== "*" && current_path.indexOf(path) == 0
     }).sort(function(a, b) {
-      return b.length - a.length
+      return a.length - b.length
+    }).map(function(path) {
+      return config[path]
     })
 
-    // No matches found so only use global
-    if(config_paths.length == 0) {
-      return config["*"]
-    }
-
     // Merge global with closest match
-    return Object.assign({}, config["*"], config[config_paths[0]])
+    return Object.assign(config["*"], ...scoped_configs)
   }
 
   exports.write = function(data) {
