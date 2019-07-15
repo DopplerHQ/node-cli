@@ -27,7 +27,13 @@ program.parse(process.argv);
 
 // Show Help
 if(!program.args.length) {
-    
+  const config = program.config.load()
+
+  // Login if user is not authenticated
+  if(config["*"].key == undefined) {
+    return program._events["command:login"]()
+  }
+
   // Check Version Number
   request({
     uri: "https://registry.npmjs.org/" + package.name,
@@ -39,7 +45,7 @@ if(!program.args.length) {
         "doppler update\n"
       ))
     }
-    
+
     // Print Help
     program.help();
   })
