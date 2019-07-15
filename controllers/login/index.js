@@ -26,7 +26,7 @@ function task_runner(program, options) {
 
     const server = app.listen(port)
     console.log(chalk.yellow("Opening the browser to log you into Doppler..."))
-    open("https://doppler.com/login?flow=cli&port=" + port)
+    open("https://doppler.com/workplace/cli/auth?port=" + port)
   })
 }
 
