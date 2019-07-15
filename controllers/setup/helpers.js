@@ -28,14 +28,20 @@ module.exports.create_pipeline = function(program) {
 
 module.exports.select_pipeline = function(pipelines) {
   return enquirer.prompt({
-    type: "select",
+    type: "autocomplete",
     name: "pipeline",
-    default: 0,
-    message: "Select your project's pipeline:",
-    choices: pipelines.map(function(pipeline) {
+    limit: 10,
+    message: "Select your project's pipeline",
+    highlight: function(str) {
+      return chalk.black.bgCyanBright(str)
+    },
+    choices: pipelines.sort(function(a, b) {
+      return a.name.localeCompare(b.name)
+    }).map(function(pipeline) {
       return {
-        message: pipeline.name,
-        name: pipeline.id
+        hint: pipeline.id,
+        value: pipeline.id,
+        message: pipeline.name
       }
     })
   }).then(function(answers) {
@@ -47,14 +53,17 @@ module.exports.select_pipeline = function(pipelines) {
 
 module.exports.select_environment = function(environments) {
   return enquirer.prompt({
-    type: "select",
+    type: "autocomplete",
     name: "environment",
-    default: 0,
-    message: "Select your development environment:",
+    limit: 10,
+    message: "Select your development environment",
+     highlight: function(str) {
+      return chalk.black.bgCyanBright(str)
+    },
     choices: environments.map(function(environment) {
       return {
-        message: environment.name,
-        name: environment.name
+        value: environment.name,
+        message: environment.name
       }
     })
   }).then(function(answers) {
