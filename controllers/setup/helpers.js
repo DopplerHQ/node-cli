@@ -2,9 +2,8 @@ const enquirer = require("enquirer")
 const chalk = require("chalk")
 
 
-
-module.exports.create_pipeline = function(program) {
-  console.log(chalk.yellow("We couldn't find a pipeline, so let's create a new one."))
+const create_pipeline = (program) => {
+  console.log(chalk.yellow("We couldn't find a pipeline, so let's create one now."))
 
   return enquirer.prompt([
     {
@@ -19,22 +18,18 @@ module.exports.create_pipeline = function(program) {
     }
   ]).then(function(answers) {
     return program.api.pipelines.create(answers)
-  }).then(function(response) {
-    return response.pipeline.id
-  })
+  }).then(response => response.pipeline.id)
 }
 
 
 
-module.exports.select_pipeline = function(pipelines) {
+const select_pipeline = (pipelines) => {
   return enquirer.prompt({
     type: "autocomplete",
     name: "pipeline",
     limit: 10,
     message: "Select your project's pipeline",
-    highlight: function(str) {
-      return chalk.black.bgCyanBright(str)
-    },
+    highlight: (str => chalk.black.bgCyanBright(str)),
     choices: pipelines.sort(function(a, b) {
       return a.name.localeCompare(b.name)
     }).map(function(pipeline) {
@@ -44,14 +39,12 @@ module.exports.select_pipeline = function(pipelines) {
         message: pipeline.name
       }
     })
-  }).then(function(answers) {
-    return answers.pipeline
-  })
+  }).then(answers => answers.pipeline)
 }
 
 
 
-module.exports.select_environment = function(environments) {
+const select_environment = (environments) => {
   return enquirer.prompt({
     type: "autocomplete",
     name: "environment",
@@ -66,14 +59,12 @@ module.exports.select_environment = function(environments) {
         message: environment.name
       }
     })
-  }).then(function(answers) {
-    return answers.environment
-  })
+  }).then(answers => answers.environment)
 }
 
 
 
-module.exports.create_environment = function(program, pipeline) {
+const create_environment = (program, pipeline) => {
   console.log(chalk.yellow("No development environments found, so let's create one."))
 
   return enquirer.prompt([
@@ -84,12 +75,47 @@ module.exports.create_environment = function(program, pipeline) {
     }
   ]).then(function(answers) {
     return program.api.environments.create({
-      name: "dev_" + answers.name.toLowerCase(),
+      name: `dev_${answers.name.toLowerCase()}`,
       pipeline,
       stage: "dev",
       defaults: true
     })
-  }).then(function(response) {
-    return response.environment.name
+  }).then(response => response.environment.name)
+}
+
+
+
+module.exports.pipeline = (program) => {
+  return program.api.pipelines.list().then(function(response) {
+    if(response.pipelines.length > 0) {
+      return select_pipeline(response.pipelines)
+    }
+
+    return create_pipeline(program)
   })
 }
+
+
+module.exports.environment = (program, pipeline) => {
+  const stage_formats = new Set(["dev", "development"]) // "development" slug is legacy
+
+  return program.api.stages.list({ pipeline }).then((response) => {
+    if(response.stages.filter(({id}) => stage_formats.has(id)).length === 0) {
+      return Promise.reject("You do not have development access for this pipeline. Please contact your workplace owner.")
+    }
+
+    // Select or create environment
+    return program.api.environments.list({ pipeline })
+
+  }).then((response) => {
+    const environments = response.environments.filter(({stage}) => stage_formats.has(stage))
+
+    if(environments.length > 0) {
+      return select_environment(environments)
+    }
+
+    return create_environment(program, pipeline)
+
+  }).then((environment) => ({ pipeline, environment }))
+}
+

@@ -3,13 +3,14 @@ const open = require("open")
 const express = require("express")
 const getPort = require("get-port")
 const chalk = require("chalk")
+const DefaultPort = 9876
 
 
 function task_runner(program, options) {
   const config = program.config.load()
   const app = express()
 
-  getPort({ port: 9876 }).then(function(port) {
+  getPort({ port: DefaultPort }).then(function(port) {
     app.use(require("body-parser").json())
     app.set("views", __dirname + "/views")
     app.set("view engine", "ejs")
@@ -27,7 +28,7 @@ function task_runner(program, options) {
 
     const server = app.listen(port)
     console.log(chalk.yellow("Opening the browser to log you into Doppler..."))
-    open("https://doppler.com/workplace/cli/auth?port=" + port)
+    open(`https://doppler.com/workplace/cli/auth?port=${port}"`)
   })
 }
 

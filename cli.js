@@ -30,7 +30,7 @@ if(!program.args.length) {
   const config = program.config.load()
 
   // Login if user is not authenticated
-  if(config["*"].key == undefined) {
+  if(config["*"].key === undefined) {
     return program._events["command:login"]()
   }
 
@@ -41,7 +41,7 @@ if(!program.args.length) {
   }).then(function(response) {
     if(response["dist-tags"]["latest"] != package.version) {
       console.error(chalk.green(
-        "An updated verion (" + response["dist-tags"]["latest"] + ") of the Doppler CLI is available:\n" +
+        `An updated verion (${response["dist-tags"]["latest"]}) of the Doppler CLI is available:\n` +
         "doppler update\n"
       ))
     }
