@@ -4,7 +4,7 @@ const chalk = require("chalk")
 
 
 module.exports.create_pipeline = function(program) {
-  console.log(chalk.yellow("We couldn"t find a pipeline, so let"s create a new one."))
+  console.log(chalk.yellow("We couldn't find a pipeline, so let's create a new one."))
 
   return inquirer.prompt([
     {

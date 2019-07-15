@@ -18,9 +18,7 @@ function task_runner(program, options) {
     })
 
   }).then(function(pipeline) {
-    return program.api.stages.list({
-      pipeline: pipeline
-    }).then(function(response) {
+    return program.api.stages.list({ pipeline }).then(function(response) {
       // Check if has development access
       const has_dev_access = response.stages.filter(function(stage) {
         return stage_formats.has(stage.id)
@@ -31,9 +29,7 @@ function task_runner(program, options) {
       }
 
       // Select or create environment
-      return program.api.environments.list({
-        pipeline: pipeline
-      }).then(function(response) {
+      return program.api.environments.list({ pipeline }).then(function(response) {
         const environments = response.environments.filter(function(environment) {
           return stage_formats.has(environment.stage)
         })
