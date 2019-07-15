@@ -10,7 +10,7 @@ function task_runner(program, options) {
   Promise.resolve().then(function() {
     // Select or create pipeline
     return program.api.pipelines.list().then(function(response) {
-      if(response.pipelines.length > 0) {
+      if(false && response.pipelines.length > 0) {
         return helpers.select_pipeline(response.pipelines)
       }
 

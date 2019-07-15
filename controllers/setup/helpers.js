@@ -1,4 +1,4 @@
-const inquirer = require("inquirer")
+const enquirer = require("enquirer")
 const chalk = require("chalk")
 
 
@@ -6,7 +6,7 @@ const chalk = require("chalk")
 module.exports.create_pipeline = function(program) {
   console.log(chalk.yellow("We couldn't find a pipeline, so let's create a new one."))
 
-  return inquirer.prompt([
+  return enquirer.prompt([
     {
       type: "input",
       name: "name",
@@ -27,15 +27,15 @@ module.exports.create_pipeline = function(program) {
 
 
 module.exports.select_pipeline = function(pipelines) {
-  return inquirer.prompt({
-    type: "list",
+  return enquirer.prompt({
+    type: "select",
     name: "pipeline",
-    default: pipelines[0],
+    default: 0,
     message: "Select your project's pipeline:",
     choices: pipelines.map(function(pipeline) {
       return {
-        name: pipeline.name,
-        value: pipeline.id
+        message: pipeline.name,
+        name: pipeline.id
       }
     })
   }).then(function(answers) {
@@ -46,15 +46,15 @@ module.exports.select_pipeline = function(pipelines) {
 
 
 module.exports.select_environment = function(environments) {
-  return inquirer.prompt({
-    type: "list",
+  return enquirer.prompt({
+    type: "select",
     name: "environment",
-    default: environments[0],
+    default: 0,
     message: "Select your development environment:",
     choices: environments.map(function(environment) {
       return {
-        name: environment.name,
-        value: environment.name
+        message: environment.name,
+        name: environment.name
       }
     })
   }).then(function(answers) {
@@ -67,7 +67,7 @@ module.exports.select_environment = function(environments) {
 module.exports.create_environment = function(program, pipeline) {
   console.log(chalk.yellow("No development environments found, so let's create one."))
 
-  return inquirer.prompt([
+  return enquirer.prompt([
     {
       type: "input",
       name: "name",
