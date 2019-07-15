@@ -1,21 +1,65 @@
+const url = require("url")
 const path = require("path")
 const open = require("open")
 const express = require("express")
 const getPort = require("get-port")
 const chalk = require("chalk")
+const cors = require('cors')
 const DefaultPort = 9876
+const AllowedOrigins = new Set([
+  "http://doppler.internal:3030",
+  "https://staging.doppler.com",
+  "https://doppler.com"
+])
 
 
 function task_runner(program, options) {
   const config = program.config.load()
   const app = express()
 
-  getPort({ port: DefaultPort }).then(function(port) {
-    app.use(require("body-parser").json())
+  getPort({ port: DefaultPort }).then((port) => {
     app.set("views", __dirname + "/views")
     app.set("view engine", "ejs")
+    app.use(require("body-parser").json())
 
-    app.get("/login", function(req, res) {
+
+    // CORs
+    app.use(cors((req, callback) => {
+      const origin = req.header('origin') || req.header('referer').replace(/\/$/, "")
+
+      if(origin !== undefined && AllowedOrigins.has(origin)) {
+        return callback(null, true)
+      }
+
+      callback(new Error('Origin disallowed'))
+    }))
+
+
+    // Authorized Origins Check
+    app.use((req, res, next) => {
+      const origin = req.header('origin') || req.header('referer').replace(/\/$/, "")
+
+      if(origin !== undefined && AllowedOrigins.has(origin)) {
+        return next()
+      }
+
+      const error_message = `Unauthorized origin attempting login: ${origin}`
+      console.log(chalk.red(error_message))
+      res.render("unauthorized", { origin })
+      server.close()
+    })
+
+
+    // Cancel Route
+    app.get("/cancel", (req, res, next) => {
+      console.log(chalk.yellow("Cancelling login..."))
+      res.render("cancelled")
+      server.close()
+    })
+
+
+    // Login Route
+    app.get("/login", (req, res) => {
       if(typeof req.query.api_key !== "string" || req.query.api_key.length === 0) {
         return res.render("failure", { port })
       }
@@ -23,12 +67,16 @@ function task_runner(program, options) {
       config["*"].key = req.query.api_key
       program.config.write(config)
       res.render("success")
-      program._events["command:setup"]([...arguments])
+      server.close()
+      program._events["command:setup"]()
     })
 
+    // Start Listening
     const server = app.listen(port)
+
+    // Open Browser
     console.log(chalk.yellow("Opening the browser to log you into Doppler..."))
-    open(`https://doppler.com/workplace/cli/auth?port=${port}"`)
+    open(`https://staging.doppler.com/workplace/auth/cli?port=${port}`)
   })
 }
 

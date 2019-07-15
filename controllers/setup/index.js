@@ -27,7 +27,8 @@ task_runner = (program, options) => {
     console.log(chalk.green("To start developing with your Doppler environment run the 'doppler local \"<COMMAND>\"'."))
 
   }).catch(function(error) {
-    console.error(chalk.red(error.stack))
+    console.error(chalk.red(error))
+    process.exit(1)
   })
 }
 
