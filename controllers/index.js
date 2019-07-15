@@ -1,6 +1,8 @@
 module.exports = function(program) {
   const controllers = [
     require("./help"),
+    require("./login"),
+    require("./setup"),
     require("./config"),
     require("./local"),
     require("./workplace"),
@@ -12,7 +14,7 @@ module.exports = function(program) {
     require("./links"),
     require("./update"),
   ]
-  
+
   for(var i = 0; i < controllers.length; i++) {
     controllers[i](program)
     program.command("")
