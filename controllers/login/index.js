@@ -13,12 +13,12 @@ function task_runner(program, options) {
     app.set('views', __dirname + '/views')
     app.set('view engine', 'ejs')
 
-    app.post("/login", function(req, res) {
-      if(typeof req.body.api_key != "string" || req.body.api_key.length == 0) {
+    app.get("/login", function(req, res) {
+      if(typeof req.query.api_key != "string" || req.query.api_key.length == 0) {
         return res.render("failure", { port })
       }
 
-      config["*"].key = req.body.api_key
+      config["*"].key = req.query.api_key
       program.config.write(config)
       res.render("success")
       program.utils.runCommand("node cli.js setup")
