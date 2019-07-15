@@ -5,7 +5,7 @@ const stage_formats = new Set(["dev", "development"]) // "development" slug is l
 
 
 task_runner = (program, options) => {
-  console.log(chalk.yellow("Starting setup..."))
+  console.log(chalk.yellow(`Starting setup for ${path.resolve(options.scope)}`))
 
   helpers.pipeline(program).then(function(pipeline) {
     return helpers.environment(program, pipeline)

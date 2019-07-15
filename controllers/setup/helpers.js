@@ -16,7 +16,7 @@ const create_pipeline = (program) => {
       name: "description",
       message: "Pipeline Description:",
     }
-  ]).then(function(answers) {
+  ]).then((answers) => {
     return program.api.pipelines.create(answers)
   }).then(response => response.pipeline.id)
 }
@@ -30,15 +30,15 @@ const select_pipeline = (pipelines) => {
     limit: 10,
     message: "Select your project's pipeline",
     highlight: (str => chalk.black.bgCyanBright(str)),
-    choices: pipelines.sort(function(a, b) {
-      return a.name.localeCompare(b.name)
-    }).map(function(pipeline) {
-      return {
-        hint: pipeline.id,
-        value: pipeline.id,
-        message: pipeline.name
-      }
-    })
+    choices: pipelines
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map((pipeline) => {
+        return {
+          hint: pipeline.id,
+          value: pipeline.id,
+          message: pipeline.name
+        }
+      })
   }).then(answers => answers.pipeline)
 }
 
@@ -50,10 +50,8 @@ const select_environment = (environments) => {
     name: "environment",
     limit: 10,
     message: "Select your development environment",
-     highlight: function(str) {
-      return chalk.black.bgCyanBright(str)
-    },
-    choices: environments.map(function(environment) {
+    highlight: (str => chalk.black.bgCyanBright(str)),
+    choices: environments.map((environment) => {
       return {
         value: environment.name,
         message: environment.name
@@ -73,7 +71,7 @@ const create_environment = (program, pipeline) => {
       name: "name",
       message: "Your First Name:",
     }
-  ]).then(function(answers) {
+  ]).then((answers) => {
     return program.api.environments.create({
       name: `dev_${answers.name.toLowerCase()}`,
       pipeline,
@@ -86,7 +84,7 @@ const create_environment = (program, pipeline) => {
 
 
 module.exports.pipeline = (program) => {
-  return program.api.pipelines.list().then(function(response) {
+  return program.api.pipelines.list().then((response) => {
     if(response.pipelines.length > 0) {
       return select_pipeline(response.pipelines)
     }

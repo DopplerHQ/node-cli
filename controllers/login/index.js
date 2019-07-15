@@ -59,12 +59,12 @@ function task_runner(program, options) {
 
 
     // Login Route
-    app.get("/login", (req, res) => {
-      if(typeof req.query.api_key !== "string" || req.query.api_key.length === 0) {
+    app.post("/login", (req, res) => {
+      if(typeof req.body.api_key !== "string" || req.body.api_key.length === 0) {
         return res.render("failure", { port })
       }
 
-      config["*"].key = req.query.api_key
+      config["*"].key = req.body.api_key
       program.config.write(config)
       res.render("success")
       server.close()
@@ -76,7 +76,7 @@ function task_runner(program, options) {
 
     // Open Browser
     console.log(chalk.yellow("Opening the browser to log you into Doppler..."))
-    open(`https://staging.doppler.com/workplace/auth/cli?port=${port}`)
+    open(`https://doppler.com/workplace/auth/cli?port=${port}`)
   })
 }
 
