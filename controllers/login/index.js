@@ -1,3 +1,4 @@
+const path = require("path")
 const open = require("open")
 const express = require("express")
 const getPort = require("get-port")
@@ -21,7 +22,7 @@ function task_runner(program, options) {
       config["*"].key = req.query.api_key
       program.config.write(config)
       res.render("success")
-      program.utils.runCommand("node cli.js setup")
+      program._events["command:setup"]([...arguments])
     })
 
     const server = app.listen(port)
