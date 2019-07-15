@@ -1,4 +1,4 @@
-const helpers = require('./helpers')
+const helpers = require("./helpers")
 const chalk = require("chalk")
 const path = require("path")
 const stage_formats = new Set(["dev", "development"]) // "development" slug is legacy
@@ -24,7 +24,7 @@ function task_runner(program, options) {
       // Check if has development access
       const has_dev_access = response.stages.filter(function(stage) {
         return stage_formats.has(stage.id)
-      }).length == 1
+      }).length === 1
 
       if(!has_dev_access) {
         return Promise.reject("You do not have development access for this pipeline. Please contact your workplace owner.")

@@ -1,6 +1,6 @@
 const open = require("open")
 const express = require("express")
-const getPort = require('get-port')
+const getPort = require("get-port")
 const chalk = require("chalk")
 
 
@@ -9,12 +9,12 @@ function task_runner(program, options) {
   const app = express()
 
   getPort({ port: 9876 }).then(function(port) {
-    app.use(require('body-parser').json())
-    app.set('views', __dirname + '/views')
-    app.set('view engine', 'ejs')
+    app.use(require("body-parser").json())
+    app.set("views", __dirname + "/views")
+    app.set("view engine", "ejs")
 
     app.get("/login", function(req, res) {
-      if(typeof req.query.api_key != "string" || req.query.api_key.length == 0) {
+      if(typeof req.query.api_key !== "string" || req.query.api_key.length === 0) {
         return res.render("failure", { port })
       }
 
