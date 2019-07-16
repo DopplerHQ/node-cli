@@ -28,25 +28,6 @@ program.parse(process.argv);
 
 // Show Help
 if(!program.args.length) {
-  const config = program.config.load()
-
-  // Login if user is not authenticated
-  if(config["*"].key === undefined) {
-    return enquirer.prompt([
-      {
-        type: "toggle",
-        name: "login",
-        message: "Looks like you are not logged in, do you want to login?",
-      }
-    ]).then((answers) => {
-      if(!answers.login) {
-        return program.help()
-      }
-
-      return program._events["command:login"]()
-    })
-  }
-
   // Check Version Number
   request({
     uri: "https://registry.npmjs.org/" + package.name,
