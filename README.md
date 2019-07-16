@@ -30,29 +30,29 @@ Options:
   -h, --help                             output usage information
 
 Commands:
-  
+
   login                                  login into Doppler on your computer
-  
+
   setup [options]                        setup local development for a pipeline
-  
+
   config                                 view config variables
 
   local [options] <COMMAND>              run your app locally
-  
+
   workplace [options]                    workplace information
-  
+
   logs [options]                         workplace activity logs
-  
+
   pipelines [options]                    list of pipelines
-  
+
   stages [options]                       list of a pipelines's stages
-  
+
   environments [options]                 list of environments in pipeline
-  
+
   variables [options]                    view all variables in environment
-  
+
   update                                 update the Doppler cli
-  
+
 
 ```
 
@@ -62,12 +62,10 @@ Commands:
 The first thing you will want to do is login into the CLI in the **root directory** of your project.
 
 ``` bash
-doppler login
+doppler config:set key=<DOPPLER API KEY>
 ```
 
-After the login commands complete it will automatically call the `setup` command.
-Every time after, when you want to start working on a project that needs to fetch
-variables from Doppler, call the setup command. Please make sure you are in the
+Now let's setup your project's directory to use Doppler. Please make sure you are in the
 **root directory** of the project.
 
 ``` bash
@@ -78,7 +76,7 @@ doppler setup
 ## Production Setup
 
 Using the CLI to fetch environment variables in production is super easy! Let's set your
-Doppler credentials so your machine can communicate with Doppler. 
+Doppler credentials so your machine can communicate with Doppler.
 
 ``` bash
 doppler config:set key=<DOPPLER API KEY> pipeline=<PIPELINE ID> environment=<ENVIRONMENT NAME>
@@ -97,7 +95,7 @@ doppler local "node server.js"
 Options:
   -f, --fallback <DOTENV FILEPATH>  writes to this file on boot and reads from it when you lose connection to the Doppler API.
   -h, --help                        output usage information
-``` 
+```
 
 ### Fallback Option
 When the fallback option is enabled, the CLI will write to a `.env` file on boot and reads from it when you lose connection to the Doppler API.
