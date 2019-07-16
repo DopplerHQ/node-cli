@@ -4,6 +4,7 @@ const program = require("commander")
 const package = require("./package")
 const request = require("request-promise")
 const chalk = require("chalk")
+const enquirer = require("enquirer")
 require('console.table')
 
 // Promises
@@ -31,7 +32,19 @@ if(!program.args.length) {
 
   // Login if user is not authenticated
   if(config["*"].key === undefined) {
-    return program._events["command:login"]()
+    return enquirer.prompt([
+      {
+        type: "toggle",
+        name: "login",
+        message: "Looks like you are not logged in, do you want to login?",
+      }
+    ]).then((answers) => {
+      if(!answers.login) {
+        return program.help()
+      }
+
+      return program._events["command:login"]()
+    })
   }
 
   // Check Version Number
