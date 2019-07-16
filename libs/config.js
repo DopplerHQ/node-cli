@@ -78,7 +78,7 @@ module.exports = function(program) {
     })
 
     // Merge global with closest match
-    return Object.assign(config["*"], ...scoped_configs)
+    return Object.assign({}, config["*"], ...scoped_configs)
   }
 
   exports.write = function(data) {
@@ -90,11 +90,13 @@ module.exports = function(program) {
     }
 
     _config = data
-    fs.writeFile(config_path, JSON.stringify(data), function(error) {
-      if(error != null) {
-        console.error(chalk.red("Failed to write config to disk with path " + config_path))
-      }
-    })
+
+    try {
+      fs.writeFileSync(config_path, JSON.stringify(_config))
+    } catch {
+      console.error(chalk.red("Failed to write config to disk with path " + config_path))
+      process.exit(1)
+    }
   }
 
   return exports
