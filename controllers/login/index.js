@@ -13,14 +13,12 @@ const AllowedOrigins = new Set([
 
 
 function task_runner(program, options) {
-  const config = program.config.load()
   const app = express()
 
   getPort({ port: DefaultPort }).then((port) => {
     app.set("views", __dirname + "/views")
     app.set("view engine", "ejs")
     app.use(require("body-parser").urlencoded({ extended: false }))
-
 
     // CORs
     app.use(cors({
@@ -32,7 +30,6 @@ function task_runner(program, options) {
         callback(new Error('Unauthorized Origin'))
       }
     }))
-
 
     // Authorized Origins Check
     app.use((req, res, next) => {
@@ -47,7 +44,6 @@ function task_runner(program, options) {
       server.close()
     })
 
-
     // Cancel Route
     app.post("/cancel", (req, res, next) => {
       console.log(chalk.yellow("Cancelling login..."))
@@ -55,13 +51,13 @@ function task_runner(program, options) {
       server.close()
     })
 
-
     // Login Route
     app.post("/login", (req, res) => {
       if(typeof req.body.api_key !== "string" || req.body.api_key.length === 0) {
         return res.render("failure", { port })
       }
 
+      const config = program.config.load()
       config["*"].key = req.body.api_key
       program.config.write(config)
       res.render("success")
