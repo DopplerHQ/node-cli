@@ -90,11 +90,13 @@ module.exports = function(program) {
     }
 
     _config = data
-    fs.writeFile(config_path, JSON.stringify(data), function(error) {
-      if(error != null) {
-        console.error(chalk.red("Failed to write config to disk with path " + config_path))
-      }
-    })
+
+    try {
+      fs.writeFileSync(config_path, JSON.stringify(data))
+    } catch {
+      console.error(chalk.red("Failed to write config to disk with path " + config_path))
+      process.exit(1)
+    }
   }
 
   return exports
