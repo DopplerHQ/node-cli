@@ -31,6 +31,10 @@ Options:
 
 Commands:
   
+  login                                  login into Doppler on your computer
+  
+  setup [options]                        setup local development for a pipeline
+  
   config                                 view config variables
 
   local [options] <COMMAND>              run your app locally
@@ -53,21 +57,33 @@ Commands:
 ```
 
 
-## First Time Setup
+## Development Setup
 
-The first thing you will want to do is set your Doppler API key, which is found on the [API Key](https://doppler.com/workplace/api_key) page.
-
-``` bash
-doppler config:set key=<YOUR DOPPLER API KEY>
-```
-
-Next let's set the pipeline id and environment name for your project. You should be 
-in your project's root directory so that we can scope the credentials to your project.
-Now when you change project folders, your Doppler credentials will update too.
+The first thing you will want to do is login into the CLI in the **root directory** of your project.
 
 ``` bash
-doppler config:set --scope=. pipeline=<PIPELINE ID> environment=<ENVIRONMENT NAME>
+doppler login
 ```
+
+After the login commands complete it will automatically call the `setup` command.
+Every time after, when you want to start working on a project that needs to fetch
+variables from Doppler, call the setup command. Please make sure you are in the
+**root directory** of the project.
+
+``` bash
+doppler setup
+```
+
+
+## Production Setup
+
+Using the CLI to fetch environment variables in production is super easy! Let's set your
+Doppler credentials so your machine can communicate with Doppler. 
+
+``` bash
+doppler config:set key=<DOPPLER API KEY> pipeline=<PIPELINE ID> environment=<ENVIRONMENT NAME>
+```
+
 
 ## Run Locally
 
