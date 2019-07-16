@@ -20,24 +20,24 @@ function task_runner(program, options) {
   getPort({ port: DefaultPort }).then((port) => {
     app.set("views", __dirname + "/views")
     app.set("view engine", "ejs")
-    app.use(require("body-parser").json())
+    app.use(require("body-parser").urlencoded({ extended: false }))
 
 
     // CORs
-    app.use(cors((req, callback) => {
-      const origin = req.header('origin') || req.header('referer').replace(/\/$/, "")
+    app.use(cors({
+      origin: (origin, callback) => {
+        if(origin !== undefined && AllowedOrigins.has(origin)) {
+          return callback(null, true)
+        }
 
-      if(origin !== undefined && AllowedOrigins.has(origin)) {
-        return callback(null, true)
+        callback(new Error('Unauthorized Origin'))
       }
-
-      callback(new Error('Origin disallowed'))
     }))
 
 
     // Authorized Origins Check
     app.use((req, res, next) => {
-      const origin = req.header('origin') || req.header('referer').replace(/\/$/, "")
+      const origin = req.header('origin')
 
       if(origin !== undefined && AllowedOrigins.has(origin)) {
         return next()
@@ -51,7 +51,7 @@ function task_runner(program, options) {
 
 
     // Cancel Route
-    app.get("/cancel", (req, res, next) => {
+    app.post("/cancel", (req, res, next) => {
       console.log(chalk.yellow("Cancelling login..."))
       res.render("cancelled")
       server.close()
@@ -60,6 +60,8 @@ function task_runner(program, options) {
 
     // Login Route
     app.post("/login", (req, res) => {
+      console.log(req.body)
+
       if(typeof req.body.api_key !== "string" || req.body.api_key.length === 0) {
         return res.render("failure", { port })
       }
