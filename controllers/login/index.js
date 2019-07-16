@@ -41,14 +41,14 @@ function task_runner(program, options) {
 
       console.log(chalk.red(`Unauthorized origin attempting login: ${origin}`))
       res.render("unauthorized", { origin })
-      server.close()
+      process.exit(1)
     })
 
     // Cancel Route
     app.post("/cancel", (req, res, next) => {
       console.log(chalk.yellow("Cancelling login..."))
       res.render("cancelled")
-      server.close()
+      process.exit(0)
     })
 
     // Login Route
