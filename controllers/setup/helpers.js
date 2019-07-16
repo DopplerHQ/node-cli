@@ -32,13 +32,11 @@ const select_pipeline = (pipelines) => {
     highlight: (str => chalk.black.bgCyanBright(str)),
     choices: pipelines
       .sort((a, b) => a.name.localeCompare(b.name))
-      .map((pipeline) => {
-        return {
-          hint: pipeline.id,
-          value: pipeline.id,
-          message: pipeline.name
-        }
-      })
+      .map((pipeline) => ({
+        hint: pipeline.id,
+        value: pipeline.id,
+        message: pipeline.name
+      }))
   }).then(answers => answers.pipeline)
 }
 
@@ -51,12 +49,10 @@ const select_environment = (environments) => {
     limit: 10,
     message: "Select your development environment",
     highlight: (str => chalk.black.bgCyanBright(str)),
-    choices: environments.map((environment) => {
-      return {
-        value: environment.name,
-        message: environment.name
-      }
-    })
+    choices: environments.map((environment) => ({
+      value: environment.name,
+      message: environment.name
+    }))
   }).then(answers => answers.environment)
 }
 

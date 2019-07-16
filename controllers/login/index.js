@@ -1,4 +1,3 @@
-const url = require("url")
 const path = require("path")
 const open = require("open")
 const express = require("express")
@@ -43,8 +42,7 @@ function task_runner(program, options) {
         return next()
       }
 
-      const error_message = `Unauthorized origin attempting login: ${origin}`
-      console.log(chalk.red(error_message))
+      console.log(chalk.red(`Unauthorized origin attempting login: ${origin}`))
       res.render("unauthorized", { origin })
       server.close()
     })
@@ -60,8 +58,6 @@ function task_runner(program, options) {
 
     // Login Route
     app.post("/login", (req, res) => {
-      console.log(req.body)
-
       if(typeof req.body.api_key !== "string" || req.body.api_key.length === 0) {
         return res.render("failure", { port })
       }
@@ -77,8 +73,10 @@ function task_runner(program, options) {
     const server = app.listen(port)
 
     // Open Browser
+    const login_url = `https://doppler.com/workplace/auth/cli?port=${port}`
     console.log(chalk.yellow("Opening the browser to log you into Doppler..."))
-    open(`https://doppler.com/workplace/auth/cli?port=${port}`)
+    console.log(chalk.yellow(`If the browser did not open, please go this url: ${login_url}`))
+    open(login_url)
   })
 }
 
