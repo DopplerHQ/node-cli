@@ -115,8 +115,7 @@ module.exports = function(program) {
       return console.log(text)
     }
 
-    const filePath = exports.tmpFile()
-    fs.writeFileSync(filePath, text)
+    const filePath = exports.writeTmpFile(text)
     program.utils.runCommand(`${command} ${filePath}`, {}, () => {
       fs.unlinkSync(filePath)
     })

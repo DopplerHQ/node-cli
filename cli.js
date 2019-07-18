@@ -39,10 +39,10 @@ if(!program.args.length) {
           `An updated verion (${response["dist-tags"]["latest"]}) of the Doppler CLI is available:\n` +
           "doppler update\n"
         ) + helpText
-
-        program.utils.scrollPrint("Help", helpText)
-        return "";
       }
+
+      program.utils.scrollPrint("Help", helpText)
+      return "";
     })
   })
 }
