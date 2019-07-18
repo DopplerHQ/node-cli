@@ -4,12 +4,12 @@ const fs = require("fs")
 const chalk = require("chalk")
 
 
-function task_runner(program, options) {  
+function task_runner(program, options) {
   program.api.logs.list().then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else {
-      console.log(response.logs.map(function(log) {
+      program.utils.scrollPrint("Activity Logs", response.logs.map(function(log) {
         return [
           chalk.bold.yellow("Log: " + log.id),
           chalk.blue("Actor: " + log.user.name + " <" + log.user.email + ">"),

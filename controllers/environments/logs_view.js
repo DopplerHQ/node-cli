@@ -4,13 +4,12 @@ const fs = require("fs")
 const chalk = require("chalk")
 
 
-function task_runner(program, options) {    
+function task_runner(program, options) {
   program.api.environments.logs_view({
-    pipeline: options.pipeline,
     environment: options.environment,
     log: options.log
   }).then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else {
       const log = response.log
@@ -32,7 +31,6 @@ module.exports = function(program) {
     .command("environments:logs:view")
     .description("specific environment audit log")
     .option("-l, --log <id>", "log id")
-    .option("-p, --pipeline <id>", "pipeline id")
     .option("-e, --environment <name>", "environment name")
     .option("--json", "print in json format", false)
     .action(task_runner.bind(null, program));
