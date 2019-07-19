@@ -107,7 +107,7 @@ module.exports = function(program) {
   exports.scrollPrint = (prompt, text) => {
     let command;
 
-    if(commandExists("ls")) {
+    if(commandExists("less")) {
       command = `export LESS='-Ps${prompt}\\: q or ctr-c to quit'; less -r -K -L`
     } else if(commandExists("more")) {
       command = `more`
