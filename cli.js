@@ -33,14 +33,16 @@ if(!program.args.length) {
     uri: "https://registry.npmjs.org/" + package.name,
     json: true
   }).then(function(response) {
-    if(response["dist-tags"]["latest"] != package.version) {
-      console.error(chalk.green(
-        `An updated verion (${response["dist-tags"]["latest"]}) of the Doppler CLI is available:\n` +
-        "doppler update\n"
-      ))
-    }
+    program.outputHelp(helpText => {
+      if(response["dist-tags"] !== undefined && response["dist-tags"]["latest"] !== package.version) {
+        helpText = chalk.green(
+          `An updated verion (${response["dist-tags"]["latest"]}) of the Doppler CLI is available:\n` +
+          "doppler update\n"
+        ) + helpText
+      }
 
-    // Print Help
-    program.help();
+      program.utils.scrollPrint("Help", helpText)
+      return "";
+    })
   })
 }
