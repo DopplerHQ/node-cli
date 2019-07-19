@@ -34,7 +34,7 @@ if(!program.args.length) {
     json: true
   }).then(function(response) {
     program.outputHelp(helpText => {
-      if(response["dist-tags"]["latest"] != package.version) {
+      if(response["dist-tags"] !== undefined && response["dist-tags"]["latest"] !== package.version) {
         helpText = chalk.green(
           `An updated verion (${response["dist-tags"]["latest"]}) of the Doppler CLI is available:\n` +
           "doppler update\n"
