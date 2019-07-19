@@ -14,8 +14,8 @@ global.Promise = require("bluebird")
 program.name = "doppler"
 program
   .version(package.version)
-  .option("-k, --key <API KEY>", "override API key from '.doppler' file")
-  .option("-h, --host <HOST URL>", "override Doppler API host", "https://api.doppler.com")
+  .option("-k, --key <API KEY>", "override the API Key in configs")
+  .option("-h, --host <HOST URL>", "override Doppler's API host", "https://api.doppler.com")
 
 // Attach Libs
 require("./libs")(program)
