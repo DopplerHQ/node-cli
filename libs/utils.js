@@ -108,7 +108,7 @@ module.exports = function(program) {
     let command;
 
     if(commandExists("less")) {
-      command = `less -r -K -L -P 's${prompt}\\: q or ctr-c to quit'`
+      command = `less -r -K -L -f -P 's${prompt}\\: q or ctr-c to quit'`
     } else if(commandExists("more")) {
       command = `more`
     } else {
