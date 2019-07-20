@@ -65,7 +65,7 @@ module.exports = function(program) {
 
         // Set Payload
         if(definition.method == "GET") {
-          request_data.data = payload
+          request_data.params = payload
         } else {
           request_data.data = payload
         }
