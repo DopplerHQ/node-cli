@@ -99,7 +99,7 @@ module.exports = function(program) {
   }
 
   exports.writeTmpFile = (text) => {
-    const filePath = exports.tmpFile()
+    const filePath = `${exports.tmpFile()}.txt`
     fs.writeFileSync(filePath, text)
     return filePath
   }
