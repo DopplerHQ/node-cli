@@ -1,5 +1,5 @@
 const striptags = require("striptags")
-const moment = require("moment")
+const moment = require("dayjs")
 const fs = require("fs")
 const chalk = require("chalk")
 
@@ -14,12 +14,10 @@ function task_runner(program, options) {
     } else {
       const log = response.log
       console.log([
-        chalk.bold.yellow("Log: " + log.id),
-        chalk.blue("Actor: " + log.user.name + " <" + log.user.email + ">"),
-        chalk.magenta("Date: " +  moment(log.created_at).format("ddd MMM d H:MA")),
-        "",
-        "\t" + striptags(log.text),
-        "\n"
+        chalk.bold.yellow(`Log: ${log.id}`),
+        `Actor: ${log.user.name} <${log.user.email}>`,
+        `Date: ${moment(log.created_at).format("ddd MMM d H:MA")}`,
+        `\n\t${striptags(log.text)}\n\n`
       ].join("\n"))
     }
   })

@@ -1,6 +1,6 @@
 {
   "name": "@dopplerhq/cli",
-  "version": "2.0.32",
+  "version": "2.0.34",
   "description": "The official Doppler CLI.",
   "main": "cli.js",
   "repository": {
@@ -24,21 +24,18 @@
   "homepage": "https://doppler.com",
   "dependencies": {
     "@dopplerhq/client": "^2.0.17",
+    "axios": "^0.19.0",
     "bluebird": "^3.5.3",
-    "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "command-exists": "^1.2.8",
     "commander": "^2.19.0",
     "console.table": "^0.10.0",
+    "dayjs": "^1.8.15",
     "dotenv": "6.1.0",
-    "ejs": "^2.6.2",
     "enquirer": "^2.3.1",
     "exec-sh": "0.3.2",
-    "moment": "^2.24.0",
     "open": "^6.0.0",
     "random-hash": "^4.0.1",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4",
     "striptags": "^3.1.1"
   }
 }
