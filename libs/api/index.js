@@ -1,4 +1,4 @@
-const request = require("request-promise")
+const axios = require("axios")
 const chalk = require("chalk")
 
 
@@ -43,12 +43,13 @@ module.exports = function(program) {
         // Build Request
         var request_data = {
           method: definition.method,
-          uri: program.host + definition.path(data),
-          json: true,
+          url: program.host + definition.path(data),
+          responseType: "json",
           headers: {
             "api-key": data.api_key,
             "client-sdk": "cli",
             "client-version": program.version(),
+            "user-agent": `doppler cli ${program.version()}`
           }
         }
 
@@ -64,20 +65,22 @@ module.exports = function(program) {
 
         // Set Payload
         if(definition.method == "GET") {
-          request_data.qs = payload
+          request_data.data = payload
         } else {
-          request_data.body = payload
+          request_data.data = payload
         }
 
         // Make Request
-        return request(request_data).catch(function(error) {
-          if(error.error.code == "ENOTFOUND") {
+        return axios(request_data).then((response) => {
+          return response.data
+        }).catch((error) => {
+          if(error.code == "ENOTFOUND") {
             console.error(chalk.red("ERROR: Could not reach \"" + program.host + "\". Please make sure you are connected to the internet."))
           } else if(typeof error.error == "string") {
             console.error("ERROR: " + chalk.red(error.error))
           } else {
-            for (var i = 0; i < error.error.messages.length; i++) {
-              console.error(chalk.red("ERROR: " + error.error.messages[i]));
+            for (var i = 0; i < error.response.data.messages.length; i++) {
+              console.error(chalk.red("ERROR: " + error.response.data.messages[i]));
             }
 
             for (var i = 0; i < program.args.length; i++) {
