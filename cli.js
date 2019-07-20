@@ -2,7 +2,7 @@
 
 const program = require("commander")
 const package = require("./package")
-const request = require("request-promise")
+const axios = require("axios")
 const chalk = require("chalk")
 const enquirer = require("enquirer")
 require('console.table')
@@ -29,14 +29,15 @@ program.parse(process.argv);
 // Show Help
 if(!program.args.length) {
   // Check Version Number
-  request({
-    uri: "https://registry.npmjs.org/" + package.name,
-    json: true
+  axios({
+    url: "https://registry.npmjs.org/" + package.name,
+    responseType: "json"
   }).then(function(response) {
+    const { data } = response;
     program.outputHelp(helpText => {
-      if(response["dist-tags"] !== undefined && response["dist-tags"]["latest"] !== package.version) {
+      if(data["dist-tags"] !== undefined && data["dist-tags"]["latest"] !== package.version) {
         helpText = chalk.green(
-          `An updated verion (${response["dist-tags"]["latest"]}) of the Doppler CLI is available:\n` +
+          `An updated verion (${data["dist-tags"]["latest"]}) of the Doppler CLI is available:\n` +
           "doppler update\n"
         ) + helpText
       }
