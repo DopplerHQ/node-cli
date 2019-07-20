@@ -100,7 +100,7 @@ module.exports = function(program) {
 
   exports.writeTmpFile = (text) => {
     const filePath = `${exports.tmpFile()}.txt`
-    fs.writeFileSync(filePath, text)
+    fs.writeFileSync(filePath, text, 'utf8')
     return filePath
   }
 
