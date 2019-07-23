@@ -1,13 +1,13 @@
-function task_runner(program, options) {  
+function task_runner(program, options) {
   program.api.variables.variables({
     environment: options.environment,
     pipeline: options.pipeline
   }).then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else if(options.plain) {
       console.log(Object.keys(response.variables).map(function(name) {
-        return name + "=" + response.variables[name].raw;
+        return `${name}="${response.variables[name].raw.replace(/\\/g, '\\\\').replace(/\"/g, '\\"')}"`
       }).join("\n"))
     } else {
       console.table(Object.keys(response.variables).map(function(name) {
