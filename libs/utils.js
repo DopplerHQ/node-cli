@@ -94,6 +94,10 @@ module.exports = function(program) {
     })
   }
 
+  exports.env_escape = (text)=> {
+    return text.replace(/\\/g, '\\\\').replace(/\"/g, '\\"')
+  }
+
   exports.tmpFile = () => {
     return path.join(os.tmpdir(), exports.random(15))
   }

@@ -7,7 +7,7 @@ function task_runner(program, options) {
       console.log(response)
     } else if(options.plain) {
       console.log(Object.keys(response.variables).map(function(name) {
-        return `${name}="${response.variables[name].raw.replace(/\\/g, '\\\\').replace(/\"/g, '\\"')}"`
+        return `${name}="${program.utils.env_escape(response.variables[name].raw)}"`
       }).join("\n"))
     } else {
       console.table(Object.keys(response.variables).map(function(name) {
