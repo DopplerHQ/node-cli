@@ -93,7 +93,7 @@ module.exports = function(program) {
 
     try {
       fs.writeFileSync(config_path, JSON.stringify(_config))
-    } catch {
+    } catch(_) {
       console.error(chalk.red("Failed to write config to disk with path " + config_path))
       process.exit(1)
     }
