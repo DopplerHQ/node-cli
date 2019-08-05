@@ -3,7 +3,7 @@ module.exports = function(program) {
     require("./help"),
     require("./setup"),
     require("./config"),
-    require("./local"),
+    require("./run"),
     require("./workplace"),
     require("./logs"),
     require("./pipelines"),
