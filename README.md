@@ -83,14 +83,14 @@ doppler config:set key=<DOPPLER API KEY> pipeline=<PIPELINE ID> environment=<ENV
 ```
 
 
-## Run Locally
+## Run App
 
-The cli can inject your Doppler environments keys through the `local` command. Your
+The cli can inject your Doppler environments keys through the `run` command. Your
 application will then be able to pull your keys natively. **The CLI works great on all
 languages and programs.**
 
 ``` bash
-doppler local "node server.js"
+doppler run "node server.js"
 
 Options:
   -f, --fallback <DOTENV FILEPATH>  writes to this file on boot and reads from it when you lose connection to the Doppler API.
@@ -101,24 +101,24 @@ Options:
 When the fallback option is enabled, the CLI will write to a `.env` file on boot and reads from it when you lose connection to the Doppler API.
 
 ``` bash
-doppler local "python server.py" --fallback="./fallback.env"
+doppler run "python server.py" --fallback="./fallback.env"
 ```
 
 ### Extra Examples
 Few ways to use the CLI with popular programming languages:
 
 ``` bash
-doppler local "go run server.go" # go
+doppler run "go run server.go" # go
 
-doppler local "php artisan serve" # php
+doppler run "php artisan serve" # php
 
-doppler local "java -jar Server.jar" # java
+doppler run "java -jar Server.jar" # java
 
-doppler local "node server.js" # node.js
+doppler run "node server.js" # node.js
 
-doppler local "python server.py" # python
+doppler run "python server.py" # python
 
-doppler local "ruby server.rb" # ruby
+doppler run "ruby server.rb" # ruby
 ```
 
 ## Extra Information
