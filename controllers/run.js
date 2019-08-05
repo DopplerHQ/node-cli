@@ -12,7 +12,7 @@ module.exports = function(program) {
   program
     .command("run <COMMAND>")
     .alias("local")
-    .description("run your app")
+    .description("run your app with variables from Doppler")
     .option("-f, --fallback <DOTENV FILEPATH>", "writes to this file on boot and read from it when you lose connection to the Doppler API.")
     .option("-p, --pipeline <id>", "pipeline id")
     .option("-e, --environment <name>", "environment name")

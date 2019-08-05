@@ -37,7 +37,7 @@ Commands:
 
   config                                 view config variables
 
-  local [options] <COMMAND>              run your app locally
+  run [options] <COMMAND>                run your app with variables from Doppler
 
   workplace [options]                    workplace information
 
