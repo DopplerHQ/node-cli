@@ -143,7 +143,6 @@ module.exports = function(program) {
       options.env.PATH = process.env.PATH
       options.env.PS1 = process.env.PS1
       options.env.HOME = process.env.HOME
-      options.env.TERM = "xterm-color"
 
       const child = spawn(cmd, options)
 
