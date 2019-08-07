@@ -23,7 +23,7 @@ module.exports = function(program) {
 
     if(credentials.pipeline == null) {
       console.error(chalk.red(
-        "Please provide a pipline. You can also set a default with the following command:\n" +
+        "Please provide a pipeline. You can also set a default with the following command:\n" +
         "doppler config:set pipeline <PIPELINE ID>"
       ))
 
