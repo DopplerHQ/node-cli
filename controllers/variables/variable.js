@@ -1,15 +1,15 @@
-function task_runner(program, argument, options) {  
+function task_runner(program, argument, options) {
   program.api.variables.variable({
     pipeline: options.pipeline,
     environment: options.environment,
     name: argument
   }).then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else if(options.plain) {
       console.log(response.value.raw)
     } else {
-      console.table([{
+      program.utils.tablePrint([{
         name: response.name,
         value: response.value.raw,
         computed: response.value.computed

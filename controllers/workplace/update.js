@@ -1,12 +1,12 @@
-function task_runner(program, options) {  
+function task_runner(program, options) {
   program.api.workplace.update({
     name: options.name,
     billing_email: options.billing
   }).then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else {
-      console.table([response.workplace])
+      program.utils.tablePrint([response.workplace])
     }
   })
 }

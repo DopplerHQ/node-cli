@@ -10,7 +10,7 @@ function task_runner(program, options) {
         return `${name}="${program.utils.env_escape(response.variables[name].raw)}"`
       }).join("\n"))
     } else {
-      console.table(Object.keys(response.variables).map(function(name) {
+      program.utils.scrollTablePrint("Variables", Object.keys(response.variables).map(function(name) {
         return {
           name,
           value: response.variables[name].raw,

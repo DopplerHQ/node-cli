@@ -1,9 +1,9 @@
 function task_runner(program, options) {
   program.api.workplace.view().then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else {
-      console.table([response.workplace])
+      program.utils.tablePrint([response.workplace])
     }
   })
 }

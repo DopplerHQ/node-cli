@@ -36,7 +36,7 @@ function task_runner() {
     "All variables are being shown, including ones out of scope.\n"
   ))
 
-  console.table(printable)
+  program.utils.tablePrint(printable)
 }
 
 

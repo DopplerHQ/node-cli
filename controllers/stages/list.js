@@ -2,10 +2,10 @@ function task_runner(program, options) {
   program.api.stages.list({
     pipeline: options.pipeline
   }).then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else {
-      console.table(response.stages) 
+      program.utils.tablePrint(response.stages)
     }
   })
 }

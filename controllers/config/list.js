@@ -20,7 +20,7 @@ function task_runner(program, options) {
     ))
   }
 
-  console.table(config)
+  program.utils.tablePrint(config)
 }
 
 

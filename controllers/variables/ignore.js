@@ -1,12 +1,12 @@
-function task_runner(program, options) {  
+function task_runner(program, options) {
   program.api.variables.variables({
     environment: options.environment,
     pipeline: options.pipeline
   }).then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else {
-      console.table(response.ignore.map(function(name) {
+      program.utils.scrollTablePrint("Ignored Variables", response.ignore.map(function(name) {
         return {
           name
         }

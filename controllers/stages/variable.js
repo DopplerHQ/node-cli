@@ -4,12 +4,12 @@ function task_runner(program, name, options) {
     pipeline: options.pipeline,
     name: name
   }).then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else if(options.plain) {
       console.log(response.value)
     } else {
-      console.table([{
+      program.utils.tablePrint([{
         name: response.name,
         value: response.value
       }])

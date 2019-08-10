@@ -1,14 +1,14 @@
-function task_runner(program, options) {    
+function task_runner(program, options) {
   program.api.environments.create({
     name: options.name,
     pipeline: options.pipeline,
     stage: options.stage,
     defaults: !options.blank
-  }).then(function(response) {    
-    if(options.json) {    
+  }).then(function(response) {
+    if(options.json) {
       console.log(response)
     } else {
-      console.table([response.environment]) 
+      program.utils.tablePrint([response.environment])
     }
   })
 }

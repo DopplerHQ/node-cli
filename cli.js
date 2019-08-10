@@ -5,7 +5,6 @@ const package = require("./package")
 const axios = require("axios")
 const chalk = require("chalk")
 const enquirer = require("enquirer")
-require('console.table')
 
 // Promises
 global.Promise = require("bluebird")
