@@ -1,12 +1,12 @@
-function task_runner(program, options) {  
+function task_runner(program, options) {
   program.api.environments.view({
     environment: options.environment,
     pipeline: options.pipeline
-  }).then(function(response) {    
-    if(options.json) {    
+  }).then(function(response) {
+    if(options.json) {
       console.log(response)
     } else {
-      console.table([response.environment]) 
+      program.utils.tablePrint([response.environment])
     }
   })
 }

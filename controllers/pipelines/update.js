@@ -1,13 +1,13 @@
-function task_runner(program, options) {  
+function task_runner(program, options) {
   program.api.pipelines.update({
     pipeline: options.pipeline,
     name: options.name,
     description: options.description
   }).then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else {
-      console.table([response.pipeline])
+      program.utils.tablePrint([response.pipeline])
     }
   })
 }

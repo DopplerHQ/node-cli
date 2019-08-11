@@ -1,11 +1,11 @@
-function task_runner(program, options) {  
+function task_runner(program, options) {
   program.api.pipelines.view({
     pipeline: options.pipeline
   }).then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else {
-      console.table([response.pipeline]) 
+      program.utils.tablePrint([response.pipeline])
     }
   })
 }

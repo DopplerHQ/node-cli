@@ -3,10 +3,10 @@ function task_runner(program, options) {
     name: options.name,
     description: options.description
   }).then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else {
-      console.table([response.pipeline])
+      program.utils.tablePrint([response.pipeline])
     }
   })
 }

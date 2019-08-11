@@ -5,6 +5,7 @@ const spawn = require("exec-sh")
 const hasher = require("random-hash")
 const chalk = require("chalk")
 const os = require("os")
+const cTable = require('console.table')
 const commandExists = require('command-exists').sync
 
 
@@ -108,8 +109,20 @@ module.exports = function(program) {
     return filePath
   }
 
+  exports.tablePrint = (table) => {
+    console.log(cTable.getTable(table))
+  }
+
+  exports.scrollTablePrint = (prompt, table) => {
+    program.utils.scrollPrint(prompt, cTable.getTable(table))
+  }
+
   exports.scrollPrint = (prompt, text) => {
     let command;
+
+    if(text.split("\n").length < 30) {
+      return console.log(text)
+    }
 
     if(commandExists("less")) {
       command = `less -r -K -L -f -P 's${prompt}\\: q or ctr-c to quit'`

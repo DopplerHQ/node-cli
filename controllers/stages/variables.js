@@ -1,16 +1,16 @@
-function task_runner(program, options) {  
+function task_runner(program, options) {
   program.api.stages.variables({
     stage: options.stage,
     pipeline: options.pipeline
   }).then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else if(options.plain) {
       console.log(Object.keys(response.variables).map(function(name) {
         return name + "=" + response.variables[name];
       }).join("\n"))
     } else {
-      console.table(Object.keys(response.variables).map(function(name) {
+      program.utils.scrollTablePrint("Variables", Object.keys(response.variables).map(function(name) {
         return {
           name,
           value: response.variables[name]

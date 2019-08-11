@@ -1,9 +1,9 @@
 function task_runner(program, options) {
   program.api.pipelines.list().then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else {
-      console.table(response.pipelines) 
+      program.utils.scrollTablePrint("Pipelines", response.pipelines)
     }
   })
 }

@@ -1,27 +1,27 @@
-function task_runner() { 
-  const args = Array.from(arguments) 
+function task_runner() {
+  const args = Array.from(arguments)
   const program = args.splice(0, 1)[0]
   const options = args.splice(-1)[0]
   const variables = {}
-  
+
   if(args.length == 0) {
     return options.help()
   }
-  
+
   for(var i=0; i < args.length; i++) {
     const variable = args[i].split("=")
-    variables[variable[0]] = variable[1] || "" 
+    variables[variable[0]] = variable[1] || ""
   }
-   
+
   program.api.stages.set_variables({
     stage: options.stage,
     variables,
     pipeline: options.pipeline
   }).then(function(response) {
-    if(options.json) {    
+    if(options.json) {
       console.log(response)
     } else {
-      console.table(Object.keys(response.variables).map(function(name) {
+      program.utils.scrollTablePrint("Variables", Object.keys(response.variables).map(function(name) {
         return {
           name,
           value: response.variables[name]
