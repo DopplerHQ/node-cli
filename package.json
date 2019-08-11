@@ -1,6 +1,6 @@
 {
   "name": "@dopplerhq/cli",
-  "version": "2.0.43",
+  "version": "2.0.44",
   "description": "The official Doppler CLI.",
   "main": "cli.js",
   "repository": {
