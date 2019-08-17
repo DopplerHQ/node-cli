@@ -109,12 +109,39 @@ module.exports = function(program) {
     return filePath
   }
 
+  exports.table = (input) => {
+    const table = []
+
+    // Rows
+    for (var i in input) {
+      let row = input[i]
+      let max_line_count = Math.max(...Object.keys(row).map(key => {
+        row[key] = (row[key] || "").split(/\r\n|\r|\n/)
+        return row[key].length
+      }))
+
+      // Build rows for multiple lines
+      for(let i = 0; i < max_line_count; i++) {
+        let new_row = {}
+
+        for(let property in row) {
+          if(!row.hasOwnProperty(property)) { continue }
+          new_row[property] = row[property][i] || ""
+        }
+
+        table.push(new_row)
+      }
+    }
+
+    return cTable.getTable(table)
+  }
+
   exports.tablePrint = (table) => {
-    console.log(cTable.getTable(table))
+    console.log(program.utils.table(table))
   }
 
   exports.scrollTablePrint = (prompt, table) => {
-    program.utils.scrollPrint(prompt, cTable.getTable(table))
+    program.utils.scrollPrint(prompt, program.utils.table(table))
   }
 
   exports.scrollPrint = (prompt, text) => {
