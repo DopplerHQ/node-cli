@@ -10,7 +10,7 @@ const commandExists = require('command-exists').sync
 
 
 module.exports = function(program) {
-  var exports = {}
+  let exports = {}
 
   exports.random = function(length) {
     return hasher.generateHash({
@@ -69,7 +69,7 @@ module.exports = function(program) {
   }
 
   exports.load_env = function(file_path) {
-    var env = dotenv.config({
+    const env = dotenv.config({
       path: path.resolve(process.cwd(), file_path)
     })
 
@@ -77,9 +77,9 @@ module.exports = function(program) {
   }
 
   exports.write_env = function(config, file_path) {
-    var body = []
+    const body = []
 
-    for(var key in config) {
+    for(let key in config) {
       if(!config.hasOwnProperty(key)) { continue }
 
       const value = config[key]
@@ -202,5 +202,4 @@ module.exports = function(program) {
   }
 
   return exports
-
 }
