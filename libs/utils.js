@@ -112,7 +112,7 @@ module.exports = function(program) {
   exports.table = (input) => {
     const table = []
 
-    // Rows
+    // Iterate through rows
     for (var i in input) {
       let row = input[i]
       let max_line_count = Math.max(...Object.keys(row).map(key => {
