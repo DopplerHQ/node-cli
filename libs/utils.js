@@ -10,7 +10,7 @@ const commandExists = require('command-exists').sync
 
 
 module.exports = function(program) {
-  var exports = {}
+  let exports = {}
 
   exports.random = function(length) {
     return hasher.generateHash({
@@ -69,7 +69,7 @@ module.exports = function(program) {
   }
 
   exports.load_env = function(file_path) {
-    var env = dotenv.config({
+    const env = dotenv.config({
       path: path.resolve(process.cwd(), file_path)
     })
 
@@ -77,9 +77,9 @@ module.exports = function(program) {
   }
 
   exports.write_env = function(config, file_path) {
-    var body = []
+    const body = []
 
-    for(var key in config) {
+    for(let key in config) {
       if(!config.hasOwnProperty(key)) { continue }
 
       const value = config[key]
@@ -109,12 +109,39 @@ module.exports = function(program) {
     return filePath
   }
 
+  exports.table = (input) => {
+    const table = []
+
+    // Iterate through rows
+    for (let i in input) {
+      const row = input[i]
+      const max_line_count = Math.max(...Object.keys(row).map(key => {
+        row[key] = (row[key] || "").split(/\r\n|\r|\n/)
+        return row[key].length
+      }))
+
+      // Build rows for multiple lines
+      for(let i = 0; i < max_line_count; i++) {
+        const new_row = {}
+
+        for(const property in row) {
+          if(!row.hasOwnProperty(property)) { continue }
+          new_row[property] = row[property][i] || ""
+        }
+
+        table.push(new_row)
+      }
+    }
+
+    return cTable.getTable(table)
+  }
+
   exports.tablePrint = (table) => {
-    console.log(cTable.getTable(table))
+    console.log(program.utils.table(table))
   }
 
   exports.scrollTablePrint = (prompt, table) => {
-    program.utils.scrollPrint(prompt, cTable.getTable(table))
+    program.utils.scrollPrint(prompt, program.utils.table(table))
   }
 
   exports.scrollPrint = (prompt, text) => {
@@ -175,5 +202,4 @@ module.exports = function(program) {
   }
 
   return exports
-
 }
