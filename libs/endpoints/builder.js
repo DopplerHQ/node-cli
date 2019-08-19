@@ -21,14 +21,12 @@ module.exports = (program, host, definition_groups) => {
   // Build Endpoints
   const endpoints = {}
 
-  for(const group_name in definition_groups) {
-    if(!definition_groups.hasOwnProperty(group_name)) { continue }
+  for(const group_name of Object.keys(definition_groups)) {
     const definitions = definition_groups[group_name]
     endpoints[group_name] = {}
 
     // Build Requests per Defintion
-    for(const key in definitions) {
-      if(!definitions.hasOwnProperty(key)) { continue }
+    for(const key of Object.keys(definitions)) {
       const definition = definitions[key]
 
       endpoints[group_name][key] = build_endpoint(program, host, definition)
@@ -45,12 +43,10 @@ const build_endpoint = (program, host, definition) => {
     // Build Data
     const data = program.utils.load_credentials()
 
-    for(const name in input) {
-      if(!input.hasOwnProperty(name)) { continue }
-
+    for(const name of Object.keys(input)) {
       const value = input[name]
 
-      if(value !== null && value !== undefined && !(typeof value === "number" && isNaN(value))) {
+      if(value !== null && value !== undefined && !(typeof value === "number" && Number.isNaN(value))) {
         data[name] = value
       }
     }
@@ -140,9 +136,7 @@ const should_retry = (error, attempt) => {
       }
     }
 
-    if (!isInRange) {
-      return false
-    }
+    return isInRange
   }
 
   return true

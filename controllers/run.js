@@ -4,7 +4,7 @@ const task_runner = async (program, argument, options) => {
   // Ensure credentials are supplied
   const credentials = program.utils.load_credentials(options)
 
-  if(credentials.pipeline == null) {
+  if(credentials.pipeline === null) {
     console.error(chalk.red(
       "Please provide a pipeline. You can also set a default with the following command:\n" +
       "doppler setup"
@@ -13,7 +13,7 @@ const task_runner = async (program, argument, options) => {
     process.exit(1)
   }
 
-  if(credentials.environment == null) {
+  if(credentials.environment === null) {
     console.error(chalk.red(
       "Please provide a environment. You can also set a default with the following command:\n" +
       "doppler setup"
