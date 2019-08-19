@@ -1,7 +1,7 @@
 const chalk = require("chalk")
 const axios = require("axios")
 
-const MAX_ATTEMPTS = 1
+const MAX_ATTEMPTS = 10
 const BACKOFF_DELAY = 100
 const STATUS_CODE_RETRY_RANGES = [
   // https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
@@ -21,13 +21,13 @@ module.exports = (program, host, definition_groups) => {
   // Build Endpoints
   const endpoints = {}
 
-  for(var group_name in definition_groups) {
+  for(const group_name in definition_groups) {
     if(!definition_groups.hasOwnProperty(group_name)) { continue }
     const definitions = definition_groups[group_name]
     endpoints[group_name] = {}
 
     // Build Requests per Defintion
-    for(var key in definitions) {
+    for(const key in definitions) {
       if(!definitions.hasOwnProperty(key)) { continue }
       const definition = definitions[key]
 
@@ -43,9 +43,9 @@ module.exports = (program, host, definition_groups) => {
 const build_endpoint = (program, host, definition) => {
   const endpoint = (input={}, attempt=0) => {
     // Build Data
-    let data = program.utils.load_credentials()
+    const data = program.utils.load_credentials()
 
-    for(var name in input) {
+    for(const name in input) {
       if(!input.hasOwnProperty(name)) { continue }
 
       const value = input[name]
@@ -72,7 +72,7 @@ const build_endpoint = (program, host, definition) => {
     // Build Payload
     const payload = {}
     if(definition.hasOwnProperty("payload")) {
-      for (var i = 0; i < definition.payload.length; i++) {
+      for (let i = 0; i < definition.payload.length; i++) {
         const payload_key = definition.payload[i];
         if(!data.hasOwnProperty(payload_key)) { continue }
         payload[payload_key] = data[payload_key]
@@ -100,13 +100,13 @@ const build_endpoint = (program, host, definition) => {
       } else if(typeof error.error === "string") {
         console.error(chalk.red(`ERROR: ${error.error}`))
       } else {
-        for (var i = 0; i < error.response.data.messages.length; i++) {
+        for (let i = 0; i < error.response.data.messages.length; i++) {
           console.error(chalk.red(`ERROR: ${error.response.data.messages[i]}`))
         }
 
         console.error(chalk.yellow(`REQUEST ID: ${error.response.headers['x-request-id']}`))
 
-        for (var i = 0; i < program.args.length; i++) {
+        for (let i = 0; i < program.args.length; i++) {
           if(typeof program.args[i].help !== "function") { continue }
 
           console.log("")

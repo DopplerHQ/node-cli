@@ -39,7 +39,7 @@ module.exports = function(program) {
 
   exports.load_env = function(file_path) {
     const env = dotenv.config({
-      path: path.resolve(process.cwd(), file_path)
+      path: path.resolve(process.cwd(), file_path || "")
     })
 
     return env.parsed || null
