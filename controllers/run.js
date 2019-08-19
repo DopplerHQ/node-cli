@@ -23,26 +23,29 @@ const task_runner = async (program, argument, options) => {
   }
 
   // Fetch variables from Doppler
-  let response = await program.deploy.variables.fetch({
+  let variables = await program.deploy.variables.fetch({
     pipeline: credentials.pipeline,
     environment: credentials.environment,
     format: "json"
   })
+    .then(response => (response.variables))
+    .catch(_ => {
+      // Use fallback if available
+      const variables = program.utils.load_env(options.fallback)
 
-  // Use fallback if needed and available
-  if(!response) {
-    response = {
-      variables: program.utils.load_env(options.fallback)
-    }
+      if(variables) {
+        console.error(chalk.yellow(`Using fallback file at ${options.fallback}`))
+      }
 
-    if(!response.variables) { process.exit(1) }
+      return variables
+    })
 
-    console.error(chalk.yellow(`Using fallback file at ${options.fallback}`))
-  }
+  // Exit with status code if variables is null
+  if(!variables) { process.exit(1) }
 
   // Run command
   program.utils.runCommand(argument, {
-    env: response.variables
+    env: variables
   })
 }
 
