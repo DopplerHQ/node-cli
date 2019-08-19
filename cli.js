@@ -14,7 +14,8 @@ program.name = "doppler"
 program
   .version(package.version)
   .option("-k, --key <API KEY>", "override the API Key in configs")
-  .option("-h, --host <HOST URL>", "override Doppler's API host", "https://api.doppler.com")
+  .option("-ha, --api-host <HOST URL>", "override Doppler's API host", "https://api.doppler.com")
+  .option("-hd, --deploy-host <HOST URL>", "override Doppler's Deploy host", "https://deploy.doppler.com")
 
 // Attach Libs
 require("./libs")(program)

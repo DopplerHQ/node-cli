@@ -19,37 +19,6 @@ module.exports = function(program) {
     })
   }
 
-  exports.doppler = function(data={}) {
-    const credentials = exports.load_credentials(data)
-
-    if(credentials.pipeline == null) {
-      console.error(chalk.red(
-        "Please provide a pipeline. You can also set a default with the following command:\n" +
-        "doppler config:set pipeline <PIPELINE ID>"
-      ))
-
-      process.exit(1)
-    }
-
-    if(credentials.environment == null) {
-      console.error(chalk.red(
-        "Please provide a environment. You can also set a default with the following command:\n" +
-        "doppler config:set environment <ENVIRONMENT NAME>"
-      ))
-
-      process.exit(1)
-    }
-
-    return require("@dopplerhq/client")({
-      api_key: credentials.api_key,
-      pipeline: credentials.pipeline,
-      environment: credentials.environment,
-      client_sdk: "cli",
-      client_version: program.version(),
-      backup_filepath: data.fallback
-    })
-  }
-
   exports.load_credentials = function(data={}) {
     const config = program.config.filtered()
     const api_key = program.key || config.key || null
