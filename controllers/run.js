@@ -1,8 +1,51 @@
-function task_runner(program, argument, options) {
-  const doppler = program.utils.doppler(options)
+const chalk = require("chalk")
 
+const task_runner = async (program, argument, options) => {
+  // Ensure credentials are supplied
+  const credentials = program.utils.load_credentials(options)
+
+  if(credentials.pipeline === null) {
+    console.error(chalk.red(
+      "Please provide a pipeline. You can also set a default with the following command:\n" +
+      "doppler setup"
+    ))
+
+    process.exit(1)
+  }
+
+  if(credentials.environment === null) {
+    console.error(chalk.red(
+      "Please provide a environment. You can also set a default with the following command:\n" +
+      "doppler setup"
+    ))
+
+    process.exit(1)
+  }
+
+  // Fetch variables from Doppler
+  let variables = await program.deploy.variables.fetch({
+    pipeline: credentials.pipeline,
+    environment: credentials.environment,
+    format: "json"
+  })
+    .then(response => (response.variables))
+    .catch(_ => {
+      // Use fallback if available
+      const variables = program.utils.load_env(options.fallback)
+
+      if(variables) {
+        console.error(chalk.yellow(`Using fallback file at ${options.fallback}`))
+      }
+
+      return variables
+    })
+
+  // Exit with status code if variables is null
+  if(!variables) { process.exit(1) }
+
+  // Run command
   program.utils.runCommand(argument, {
-    env: doppler.remote_keys
+    env: variables
   })
 }
 
