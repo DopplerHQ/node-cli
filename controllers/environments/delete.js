@@ -3,8 +3,8 @@ function task_runner(program, options) {
     pipeline: options.pipeline,
     environment: options.environment
   }).then(function(response) {
-    if(options.json) {    
-      console.log(response)
+    if(options.json) {
+      console.log(JSON.stringify(response))
     } else {
       console.log("Environment has been deleted.")
     }

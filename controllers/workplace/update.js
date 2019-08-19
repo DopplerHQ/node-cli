@@ -4,7 +4,7 @@ function task_runner(program, options) {
     billing_email: options.billing
   }).then(function(response) {
     if(options.json) {
-      console.log(response)
+      console.log(JSON.stringify(response))
     } else {
       program.utils.tablePrint([response.workplace])
     }

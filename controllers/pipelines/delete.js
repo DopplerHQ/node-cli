@@ -2,8 +2,8 @@ function task_runner(program, options) {
   program.api.pipelines.delete({
     pipeline: options.pipeline
   }).then(function(response) {
-    if(options.json) {    
-      console.log(response)
+    if(options.json) {
+      console.log(JSON.stringify(response))
     } else {
       console.log("Pipeline has been deleted.")
     }

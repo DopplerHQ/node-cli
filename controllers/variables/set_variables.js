@@ -19,7 +19,7 @@ function task_runner() {
     pipeline: options.pipeline
   }).then(function(response) {
     if(options.json) {
-      console.log(response)
+      console.log(JSON.stringify(response))
     } else {
       program.utils.scrollTablePrint("Variables", Object.keys(response.variables).map(function(name) {
         return {

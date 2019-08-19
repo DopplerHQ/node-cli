@@ -4,7 +4,7 @@ function task_runner(program, options) {
     pipeline: options.pipeline
   }).then(function(response) {
     if(options.json) {
-      console.log(response)
+      console.log(JSON.stringify(response))
     } else {
       program.utils.tablePrint([response.environment])
     }

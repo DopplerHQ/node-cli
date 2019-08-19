@@ -4,10 +4,10 @@ function task_runner(program, options) {
     pipeline: options.pipeline
   }).then(function(response) {
     if(options.json) {
-      console.log(response)
+      console.log(JSON.stringify(response))
     } else if(options.plain) {
       console.log(Object.keys(response.variables).map(function(name) {
-        return name + "=" + response.variables[name];
+        return `${name}="${program.utils.env_escape(response.variables[name])}"`
       }).join("\n"))
     } else {
       program.utils.scrollTablePrint("Variables", Object.keys(response.variables).map(function(name) {

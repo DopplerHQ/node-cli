@@ -5,7 +5,7 @@ function task_runner(program, name, options) {
     name: name
   }).then(function(response) {
     if(options.json) {
-      console.log(response)
+      console.log(JSON.stringify(response))
     } else if(options.plain) {
       console.log(response.value)
     } else {

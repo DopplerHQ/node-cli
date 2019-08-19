@@ -79,31 +79,44 @@ const create_environment = (program, pipeline) => {
 
 
 
-module.exports.pipeline = (program) => {
-  return program.api.pipelines.list().then((response) => {
-    if(response.pipelines.length > 0) {
-      return select_pipeline(response.pipelines)
-    }
+module.exports.pipeline = async (program) => {
+  let pipelines = []
+  let page = 1
 
-    return create_pipeline(program)
-  })
+  while(true) {
+    const response = await program.api.pipelines.list({ page: page++ })
+    pipelines = pipelines.concat(response.pipelines)
+    if(response.pipelines.length == 0) { break }
+  }
+
+  if(pipelines.length > 0) {
+    return select_pipeline(pipelines)
+  }
+
+  return create_pipeline(program)
 }
 
 
 module.exports.environment = (program, pipeline) => {
   const stage_formats = new Set(["dev", "development"]) // "development" slug is legacy
 
-  return program.api.stages.list({ pipeline }).then((response) => {
+  return program.api.stages.list({ pipeline }).then(async (response) => {
     if(response.stages.filter(({id}) => stage_formats.has(id)).length === 0) {
       return Promise.reject("You do not have development access for this pipeline. Please contact your workplace owner.")
     }
 
     // Select or create environment
-    return program.api.environments.list({ pipeline })
+    let environments = []
+    let page = 1
 
-  }).then((response) => {
-    const environments = response.environments.filter(({stage}) => stage_formats.has(stage))
+    while(true) {
+      const response = await program.api.environments.list({ pipeline, page: page++ })
+      environments = environments.concat(response.environments.filter(({stage}) => stage_formats.has(stage)))
+      if(response.environments.length == 0) { break }
+    }
 
+    return environments
+  }).then((environments) => {
     if(environments.length > 0) {
       return select_environment(environments)
     }
@@ -112,4 +125,3 @@ module.exports.environment = (program, pipeline) => {
 
   }).then((environment) => ({ pipeline, environment }))
 }
-

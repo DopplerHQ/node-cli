@@ -10,7 +10,7 @@ function task_runner(program, options) {
     environment: options.environment
   }).then(function(response) {
     if(options.json) {
-      console.log(response)
+      console.log(JSON.stringify(response))
     } else {
       const log = response.log
       console.log([

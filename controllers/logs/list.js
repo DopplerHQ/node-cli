@@ -7,7 +7,7 @@ const chalk = require("chalk")
 function task_runner(program, options) {
   program.api.logs.list().then(function(response) {
     if(options.json) {
-      console.log(response)
+      console.log(JSON.stringify(response))
     } else {
       program.utils.scrollPrint("Activity Logs", response.logs.map(function(log) {
         return [
