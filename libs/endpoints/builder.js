@@ -1,7 +1,7 @@
 const chalk = require("chalk")
 const axios = require("axios")
 
-const MAX_ATTEMPTS = 10
+const MAX_ATTEMPTS = 3
 const BACKOFF_DELAY = 100
 const STATUS_CODE_RETRY_RANGES = [
   // https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
@@ -56,7 +56,10 @@ const build_endpoint = (program, host, definition) => {
       method: definition.method,
       url: host + definition.path(data),
       responseType: "json",
-      timeout: 1500,
+      timeout: 10000,
+      validateStatus: (status) => {
+        return status === 200
+      },
       headers: {
         "api-key": data.api_key,
         "client-sdk": "cli",
