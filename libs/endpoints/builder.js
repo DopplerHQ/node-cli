@@ -118,7 +118,7 @@ const build_endpoint = (program, host, definition) => {
         process.exit(1);
       }
 
-      return error.response
+      return Promise.reject(error)
     })
   }
 

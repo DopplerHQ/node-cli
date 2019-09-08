@@ -1,4 +1,6 @@
 const chalk = require("chalk")
+const fs = require("fs")
+const path = require("path")
 
 const task_runner = async (program, argument, options) => {
   // Ensure credentials are supplied
@@ -27,18 +29,41 @@ const task_runner = async (program, argument, options) => {
     pipeline: credentials.pipeline,
     environment: credentials.environment,
     format: "json"
-  })
-    .then(response => (response.variables))
-    .catch(_ => {
-      // Use fallback if available
-      const variables = program.utils.load_env(options.fallback)
+  }).then(async response => {
+    // Update Fallback File
+    if(options.fallback && !options.fallbackReadonly) {
+      const full_path = path.resolve(process.cwd(), options.fallback)
+      const tmp_path = `${full_path}.tmp.${process.pid}`
+      const response = await program.deploy.variables.fetch({
+        pipeline: credentials.pipeline,
+        environment: credentials.environment,
+        format: "file",
+        metadata: false
+      })
 
-      if(variables) {
-        console.error(chalk.yellow(`Using fallback file at ${options.fallback}`))
+      try {
+        fs.writeFileSync(tmp_path, response)
+        fs.renameSync(tmp_path, full_path)
+      } catch (error) {
+        console.error(chalk.red(`Failed to write fallback file to ${full_path}`))
+
+        if(fs.existsSync(tmp_path)) {
+          fs.unlinkSync(tmp_path)
+        }
       }
+    }
 
-      return variables
-    })
+    return response.variables
+  }).catch((error) => {
+    // Use fallback if available
+    const variables = program.utils.load_env(options.fallback)
+
+    if(variables) {
+      console.error(chalk.yellow(`Using fallback file at ${options.fallback}`))
+    }
+
+    return variables
+  })
 
   // Exit with status code if variables is null
   if(!variables) { process.exit(1) }
@@ -57,6 +82,7 @@ module.exports = function(program) {
     .alias("local")
     .description("run your app with variables from Doppler")
     .option("-f, --fallback <DOTENV FILEPATH>", "writes to this file on boot and read from it when you lose connection to the Doppler API.")
+    .option("--fr, --fallback-readonly", "only read the fallback file")
     .option("-p, --pipeline <id>", "pipeline id")
     .option("-e, --environment <name>", "environment name")
     .action(function(argument, options) {

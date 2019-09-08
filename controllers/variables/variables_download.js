@@ -15,7 +15,7 @@ const task_runner = async (program, file_path, options) => {
   try {
     fs.writeFileSync(full_path, response)
   } catch (error) {
-    console.error(chalk.error(`Failed to write file to ${full_path}`))
+    console.error(chalk.red(`Failed to write file to ${full_path}`))
     process.exit(1)
   }
 }
