@@ -7,5 +7,4 @@ module.exports = function(program) {
   require("./logs")(program)
   require("./logs_view")(program)
   require("./logs_rollback")(program)
-  require("./logs_diff")(program)
 }
