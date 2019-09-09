@@ -14,8 +14,8 @@ function task_runner(program, options) {
       const { log } = response
 
       const diff = log.diff.sort(function(a, b) {
-        const a_value = a.name || a[lookup] || a.added || a.removed
-        const b_value = b.name || b[lookup] || a.added || a.removed
+        const a_value = a.name || a.added || a.removed
+        const b_value = b.name || a.added || a.removed
         return a_value.localeCompare(b_value)
       }).map(function(change) {
         let added_body = change.added || ""
