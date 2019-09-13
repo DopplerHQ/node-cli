@@ -82,8 +82,7 @@ module.exports = function(program) {
     const table = []
 
     // Iterate through rows
-    for (let i in input) {
-      const row = input[i]
+    for (const row of input) {
       const max_line_count = Math.max(...Object.keys(row).map(key => {
         const value = row[key]
 
