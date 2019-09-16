@@ -90,6 +90,8 @@ module.exports = function(program) {
 
         if(typeof value === "string") {
           row[key] = value.split(/\r\n|\r|\n/)
+        } else if(value === null || value === undefined) {
+          row[key] = []
         }
       }
 
