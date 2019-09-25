@@ -5,5 +5,5 @@ module.exports = function(program) {
   }
 
   // Export Endpoints
-  return require("../builder")(program, program.deployHost, definition_groups)
+  return require("../builder")(program, "deployHost", definition_groups)
 }

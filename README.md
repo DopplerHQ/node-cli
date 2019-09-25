@@ -25,8 +25,9 @@ Usage: doppler [options] [command]
 
 Options:
   -V, --version                          output the version number
-  -k, --key <API KEY>                    override API key from '.doppler' file
-  -h, --host <HOST URL>                  override Doppler API host (default: "https://api.doppler.com")
+  -k, --key <API KEY>                    override the API Key in configs
+  --api-host <HOST URL>                  override Doppler's API host (default: "https://api.doppler.com")
+  --deploy-host <HOST URL>               override Doppler's Deploy host (default: "https://deploy.doppler.com")
   -h, --help                             output usage information
 
 Commands:
