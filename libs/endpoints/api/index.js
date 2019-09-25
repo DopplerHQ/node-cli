@@ -10,5 +10,5 @@ module.exports = function(program) {
   }
 
   // Export Endpoints
-  return require("../builder")(program, program.apiHost, definition_groups)
+  return require("../builder")(program, "apiHost", definition_groups)
 }

@@ -17,7 +17,7 @@ const STATUS_CODE_RETRY_RANGES = [
 ]
 
 
-module.exports = (program, host, definition_groups) => {
+module.exports = (program, host_name, definition_groups) => {
   // Build Endpoints
   const endpoints = {}
 
@@ -29,7 +29,7 @@ module.exports = (program, host, definition_groups) => {
     for(const key of Object.keys(definitions)) {
       const definition = definitions[key]
 
-      endpoints[group_name][key] = build_endpoint(program, host, definition)
+      endpoints[group_name][key] = build_endpoint(program, host_name, definition)
     }
   }
 
@@ -38,7 +38,7 @@ module.exports = (program, host, definition_groups) => {
 }
 
 
-const build_endpoint = (program, host, definition) => {
+const build_endpoint = (program, host_name, definition) => {
   const endpoint = (input={}, attempt=0) => {
     // Build Data
     const data = program.utils.load_credentials()
@@ -52,6 +52,7 @@ const build_endpoint = (program, host, definition) => {
     }
 
     // Build Request
+    const host = program[host_name]
     const request_data = {
       method: definition.method,
       url: host + definition.path(data),
