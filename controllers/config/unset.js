@@ -9,7 +9,8 @@ function task_runner() {
   const scope = options.scope === "*" ? "*" : path.resolve(options.scope)
 
   if(args.length == 0) {
-    return options.help()
+    options.outputHelp()
+    process.exit(1)
   }
 
   const scoped_config = config[scope] || {}
