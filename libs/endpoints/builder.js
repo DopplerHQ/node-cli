@@ -110,13 +110,13 @@ const build_endpoint = (program, host_name, definition) => {
           if(typeof program.args[i].help !== "function") { continue }
 
           console.log("")
-          program.args[i].help()
+          program.args[i].outputHelp()
           break
         }
       }
 
       if(definition.exit_on_error !== false) {
-        process.exit(1);
+        process.exit(1)
       }
 
       return Promise.reject(error)

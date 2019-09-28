@@ -5,7 +5,8 @@ function task_runner() {
   const variables = {}
 
   if(args.length == 0) {
-    return options.help()
+    options.outputHelp()
+    process.exit(1)
   }
 
   for(var i=0; i < args.length; i++) {
