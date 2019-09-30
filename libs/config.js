@@ -10,7 +10,7 @@ module.exports = function(program) {
   const config_path = path.join(os.homedir(), ".doppler.json")
 
   const path_trailing_slash = (input_path) => {
-    if(input_path[input_path.length - 1] !== "/") { input_path += "/" }
+    if(!input_path.endsWith("/")) { input_path += "/" }
     return path.normalize(input_path)
   }
 
