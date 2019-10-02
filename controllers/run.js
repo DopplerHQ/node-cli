@@ -68,8 +68,10 @@ const task_runner = async (program, argument, options) => {
   // Exit with status code if variables is null
   if(!variables) { process.exit(1) }
 
+  const args = program.rawArgs.includes("--") ? program.rawArgs.slice(program.rawArgs.indexOf("--") + 1) : [argument]
+
   // Run command
-  program.utils.runCommand(argument, {
+  program.utils.runCommand(args.join(' '), {
     env: variables
   })
 }
@@ -85,6 +87,7 @@ module.exports = function(program) {
     .option("--fr, --fallback-readonly", "only read the fallback file")
     .option("-p, --pipeline <id>", "pipeline id")
     .option("-e, --environment <name>", "environment name")
+    .option("--", "interpret everything after this option as part of the command to run")
     .action(function(argument, options) {
       task_runner(program, argument, options)
     });
