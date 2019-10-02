@@ -84,7 +84,7 @@ module.exports = function(program) {
     .alias("local")
     .description("run your app with variables from Doppler")
     .option("-f, --fallback <DOTENV FILEPATH>", "writes to this file on boot and read from it when you lose connection to the Doppler API.")
-    .option("--fr, --fallback-readonly", "only read the fallback file")
+    .option("--fr, --fallback-readonly", "treat the fallback file as read-only")
     .option("-p, --pipeline <id>", "pipeline id")
     .option("-e, --environment <name>", "environment name")
     .option("--", "interpret everything after this option as part of the command to run")

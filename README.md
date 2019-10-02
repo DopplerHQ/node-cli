@@ -97,7 +97,7 @@ doppler run -- node server.js
 
 Options:
   -f, --fallback <DOTENV FILEPATH>  writes to this file on boot and read from it when you lose connection to the Doppler API.
-  --fr, --fallback-readonly         only read the fallback file
+  --fr, --fallback-readonly         treat the fallback file as read-only
   -p, --pipeline <id>               pipeline id
   -e, --environment <name>          environment name
   --                                interpret everything after this option as part of the command to run
