@@ -17,7 +17,7 @@ const task_runner = async (program, argument, options) => {
 
   if(credentials.environment === null) {
     console.error(chalk.red(
-      "Please provide a environment. You can also set a default with the following command:\n" +
+      "Please provide an environment. You can also set a default with the following command:\n" +
       "doppler setup"
     ))
 
@@ -68,8 +68,10 @@ const task_runner = async (program, argument, options) => {
   // Exit with status code if variables is null
   if(!variables) { process.exit(1) }
 
+  const args = program.rawArgs.includes("--") ? program.rawArgs.slice(program.rawArgs.indexOf("--") + 1) : [argument]
+
   // Run command
-  program.utils.runCommand(argument, {
+  program.utils.runCommand(args.join(' '), {
     env: variables
   })
 }
@@ -82,9 +84,10 @@ module.exports = function(program) {
     .alias("local")
     .description("run your app with variables from Doppler")
     .option("-f, --fallback <DOTENV FILEPATH>", "writes to this file on boot and read from it when you lose connection to the Doppler API.")
-    .option("--fr, --fallback-readonly", "only read the fallback file")
+    .option("--fr, --fallback-readonly", "treat the fallback file as read-only")
     .option("-p, --pipeline <id>", "pipeline id")
     .option("-e, --environment <name>", "environment name")
+    .option("--", "interpret everything after this option as part of the command to run")
     .action(function(argument, options) {
       task_runner(program, argument, options)
     });

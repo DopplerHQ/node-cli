@@ -86,40 +86,46 @@ doppler config:set key=<DOPPLER API KEY> pipeline=<PIPELINE ID> environment=<ENV
 
 ## Run App
 
-The cli can inject your Doppler environments keys through the `run` command. Your
-application will then be able to pull your keys natively. **The CLI works great on all
-languages and programs.**
+Using the `run` command, specify the application you'd like to execute. The application will then be
+executed with your Doppler secrets injected directly into the environment. This allows the application
+to read your keys out of the environment using your language's built-in environment variable syntax
+(e.g. `process.env.VAR_NAME`, `os.environ["VAR_NAME"]`, `os.Getenv("VAR_NAME")`, `System.getenv("VAR_NAME")`, etc). **This method
+does not require any changes to your existing application and works with all languages and platforms.**
 
 ``` bash
-doppler run "node server.js"
+doppler run -- node server.js
 
 Options:
-  -f, --fallback <DOTENV FILEPATH>  writes to this file on boot and reads from it when you lose connection to the Doppler API.
+  -f, --fallback <DOTENV FILEPATH>  writes to this file on boot and read from it when you lose connection to the Doppler API.
+  --fr, --fallback-readonly         treat the fallback file as read-only
+  -p, --pipeline <id>               pipeline id
+  -e, --environment <name>          environment name
+  --                                interpret everything after this option as part of the command to run
   -h, --help                        output usage information
 ```
 
 ### Fallback Option
-When the fallback option is enabled, the CLI will write to a `.env` file on boot and reads from it when you lose connection to the Doppler API.
+When the fallback option is enabled, the CLI will write to a `.env` file on boot and read from it when you lose connection to the Doppler API.
 
 ``` bash
-doppler run "python server.py" --fallback="./fallback.env"
+doppler run --fallback="./fallback.env" -- python server.py
 ```
 
 ### Extra Examples
-Few ways to use the CLI with popular programming languages:
+A few ways to use the CLI with popular programming languages:
 
 ``` bash
-doppler run "go run server.go" # go
+doppler run -- go run server.go # go
 
-doppler run "php artisan serve" # php
+doppler run -- php artisan serve # php
 
-doppler run "java -jar Server.jar" # java
+doppler run -- java -jar Server.jar # java
 
-doppler run "node server.js" # node.js
+doppler run -- node server.js # node.js
 
-doppler run "python server.py" # python
+doppler run -- python server.py # python
 
-doppler run "ruby server.rb" # ruby
+doppler run -- ruby server.rb # ruby
 ```
 
 ## Extra Information
