@@ -17,7 +17,7 @@ const task_runner = async (program, argument, options) => {
 
   if(credentials.environment === null) {
     console.error(chalk.red(
-      "Please provide a environment. You can also set a default with the following command:\n" +
+      "Please provide an environment. You can also set a default with the following command:\n" +
       "doppler setup"
     ))
 
