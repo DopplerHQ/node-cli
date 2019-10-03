@@ -24,46 +24,67 @@ const task_runner = async (program, argument, options) => {
     process.exit(1)
   }
 
-  // Fetch variables from Doppler
-  let variables = await program.deploy.variables.fetch({
-    pipeline: credentials.pipeline,
-    environment: credentials.environment,
-    format: "json"
-  }).then(async response => {
-    // Update Fallback File
-    if(options.fallback && !options.fallbackReadonly) {
-      const full_path = path.resolve(process.cwd(), options.fallback)
-      const tmp_path = `${full_path}.tmp.${process.pid}`
-      const response = await program.deploy.variables.fetch({
-        pipeline: credentials.pipeline,
-        environment: credentials.environment,
-        format: "file",
-        metadata: false
-      })
+  if ((options.fallbackOnly || options.fallbackReadonly) && !options.fallback) {
+    console.error(chalk.red("You must specify a --fallback when using --fallback-only or --fallback-readonly"))
+    process.exit(1)
+  }
 
-      try {
-        fs.writeFileSync(tmp_path, response)
-        fs.renameSync(tmp_path, full_path)
-      } catch (error) {
-        console.error(chalk.red(`Failed to write fallback file to ${full_path}`))
+  const save_fallback_file = async (file_path) => {
+    const full_path = path.resolve(process.cwd(), file_path)
+    const tmp_path = `${full_path}.tmp.${process.pid}`
+    const response = await program.deploy.variables.fetch({
+      pipeline: credentials.pipeline,
+      environment: credentials.environment,
+      format: "file",
+      metadata: false
+    })
 
-        if(fs.existsSync(tmp_path)) {
-          fs.unlinkSync(tmp_path)
-        }
+    try {
+      fs.writeFileSync(tmp_path, response)
+      fs.renameSync(tmp_path, full_path)
+    } catch (error) {
+      console.error(chalk.red(`Failed to write fallback file to ${full_path}`))
+
+      if(fs.existsSync(tmp_path)) {
+        fs.unlinkSync(tmp_path)
       }
     }
+  };
 
-    return response.variables
-  }).catch((error) => {
+  const load_fallback_file = (file_path) => {
     // Use fallback if available
-    const variables = program.utils.load_env(options.fallback)
+    const fallback_variables = program.utils.load_env(file_path)
 
-    if(variables) {
-      console.error(chalk.yellow(`Using fallback file at ${options.fallback}`))
+    if(fallback_variables) {
+      console.warn(chalk.yellow(`Using fallback file at ${file_path}`))
+    }
+    else {
+      console.error(chalk.red(`Unable to load fallback file at ${file_path}`))
     }
 
-    return variables
-  })
+    return fallback_variables
+  }
+
+  let variables = null;
+  if(options.fallback && options.fallbackOnly) {
+    variables =  load_fallback_file(options.fallback)
+  }
+  else {
+    // Fetch variables from Doppler
+    variables = await program.deploy.variables.fetch({
+      pipeline: credentials.pipeline,
+      environment: credentials.environment,
+      format: "json"
+    }).then(async response => {
+      // Update Fallback File
+      if(options.fallback && !options.fallbackReadonly) {
+        await save_fallback_file(options.fallback)
+      }
+
+      return response.variables
+    }).catch(error => load_fallback_file(options.fallback))
+  }
+
 
   // Exit with status code if variables is null
   if(!variables) { process.exit(1) }
@@ -84,10 +105,11 @@ module.exports = function(program) {
     .alias("local")
     .description("run your app with variables from Doppler")
     .option("-f, --fallback <DOTENV FILEPATH>", "writes to this file on boot and read from it when you lose connection to the Doppler API.")
-    .option("--fr, --fallback-readonly", "treat the fallback file as read-only")
+    .option("--fr, --fallback-readonly", "treat the fallback file as read-only. new and updated variables won't be written to it.")
+    .option("--fo, --fallback-only", "read variables directly from the fallback file, don't contact doppler. this option implies --fallback-readonly.")
     .option("-p, --pipeline <id>", "pipeline id")
     .option("-e, --environment <name>", "environment name")
-    .option("--", "interpret everything after this option as part of the command to run")
+    .option("--", "interpret everything after this option as part of the command to run (e.g. `doppler run -- node server.js`)")
     .action(function(argument, options) {
       task_runner(program, argument, options)
     });
