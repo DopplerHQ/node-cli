@@ -24,6 +24,11 @@ const task_runner = async (program, argument, options) => {
     process.exit(1)
   }
 
+  if ((options.fallbackReadonly) && !options.fallback) {
+    console.error(chalk.red("You must specify a --fallback when using --fallback-readonly"))
+    process.exit(1)
+  }
+
   const save_fallback_file = async (file_path) => {
     const full_path = path.resolve(process.cwd(), file_path)
       const tmp_path = `${full_path}.tmp.${process.pid}`
