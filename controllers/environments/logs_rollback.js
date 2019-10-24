@@ -7,6 +7,7 @@ const chalk = require("chalk")
 function task_runner(program, options) {
   program.api.environments.logs_rollback({
     log: options.log,
+    pipeline: options.pipeline,
     environment: options.environment
   }).then(function(response) {
     if(options.json) {
@@ -29,6 +30,7 @@ module.exports = function(program) {
     .command("environments:logs:rollback")
     .description("rollback environment audit log")
     .option("-l, --log <id>", "log id")
+    .option("-p, --pipeline <id>", "pipeline id")
     .option("-e, --environment <name>", "environment name")
     .option("--json", "print in json format", false)
     .action(task_runner.bind(null, program));

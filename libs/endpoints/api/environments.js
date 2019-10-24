@@ -27,7 +27,7 @@ module.exports.logs_view = {
   path: function(data) {
     return "/v2/environments/" + data.environment + "/logs/" + data.log
   },
-  payload: []
+  payload: ["pipeline"]
 }
 
 module.exports.logs_rollback = {
@@ -35,7 +35,7 @@ module.exports.logs_rollback = {
   path: function(data) {
     return "/v2/environments/" + data.environment + "/logs/" + data.log + "/rollback"
   },
-  payload: []
+  payload: ["pipeline"]
 }
 
 module.exports.create = {
