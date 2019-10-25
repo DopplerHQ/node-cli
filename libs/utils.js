@@ -21,11 +21,11 @@ module.exports = function(program) {
 
   exports.load_credentials = function(data={}) {
     const config = program.config.filtered()
-    const api_key = program.key || config.key || null
-    const pipeline = data.pipeline || config.pipeline || null
-    const environment = data.environment || config.environment || null
+    const api_key = program.key || (program.readEnv && process.env.DOPPLER_API_KEY) || config.key
+    const pipeline = data.pipeline || (program.readEnv && process.env.DOPPLER_PIPELINE) || config.pipeline
+    const environment = data.environment || (program.readEnv && process.env.DOPPLER_ENVIRONMENT) || config.environment
 
-    if(api_key == null) {
+    if(api_key === null || api_key === undefined || api_key.length === 0) {
       console.error(chalk.red(
         "Please set your Doppler API Key with the following command:\n" +
         "doppler config:set key <YOUR DOPPLER API KEY>"
