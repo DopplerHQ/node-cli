@@ -13,6 +13,7 @@ global.Promise = require("bluebird")
 program.name = "doppler"
 program
   .version(package.version)
+  .option("--no-read-env", "Do not read Doppler credentials from environment variables: DOPPLER_API_KEY, DOPPLER_PIPELINE, DOPPLER_ENVIRONMENT", false)
   .option("-k, --key <API KEY>", "override the API Key in configs")
   .option("--api-host <HOST URL>", "override Doppler's API host", "https://api.doppler.com")
   .option("--deploy-host <HOST URL>", "override Doppler's Deploy host", "https://deploy.doppler.com")
