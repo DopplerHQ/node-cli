@@ -1,11 +1,11 @@
 {
   "name": "@dopplerhq/cli",
-  "version": "2.0.60",
+  "version": "2.0.61",
   "description": "The official Doppler CLI.",
   "main": "cli.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DopplerHQ/cli.git"
+    "url": "git+https://github.com/DopplerHQ/node-cli.git"
   },
   "bin": {
     "doppler": "cli.js"
@@ -19,7 +19,7 @@
   "author": "Doppler <support@doppler.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/DopplerHQ/cli/issues"
+    "url": "https://github.com/DopplerHQ/node-cli/issues"
   },
   "homepage": "https://doppler.com",
   "dependencies": {

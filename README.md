@@ -1,6 +1,6 @@
 # Doppler Node.js Library
 
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/DopplerHQ/cli)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/DopplerHQ/node-cli)
 [![Version](https://img.shields.io/npm/v/@dopplerhq/cli.svg)](https://www.npmjs.org/package/doppler-cli)
 [![Downloads](https://img.shields.io/npm/dm/@dopplerhq/cli.svg)](https://www.npmjs.com/package/doppler-cli)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe58518fd26a49aaaf218a6d6838e5af)](https://www.codacy.com/app/Doppler/cli?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=DopplerHQ/cli&amp;utm_campaign=Badge_Grade)
