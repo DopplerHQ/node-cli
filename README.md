@@ -1,3 +1,8 @@
+# DEPRECATED
+The new Doppler CLI is exceptionally light and fast, and is provided as a binary to support environments without `node`.
+Migrate today by visiting our [installation documentation](https://docs.doppler.com/docs/enclave-installation).
+
+
 # Doppler Node.js Library
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/DopplerHQ/node-cli)
