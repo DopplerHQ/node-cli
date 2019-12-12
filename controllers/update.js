@@ -1,5 +1,17 @@
-function task_runner(program, argument, options) {  
-  program.utils.runCommand("npm install --global @dopplerhq/cli")
+const open = require("open")
+const chalk = require("chalk")
+const enquirer = require("enquirer")
+
+async function task_runner(program, argument, options) {
+  const prompt = new enquirer.Confirm({
+    name: 'open',
+    message: chalk.yellow("Open browser to upgrade:"),
+    initial: true,
+  })
+
+  if(await prompt.run()) {
+    open("https://docs.doppler.com/docs/enclave-installation")
+  }
 }
 
 
@@ -11,5 +23,5 @@ module.exports = function(program) {
     .action(function(argument, options) {
       task_runner(program, argument, options)
     });
-  
+
 }
