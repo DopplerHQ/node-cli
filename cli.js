@@ -25,7 +25,11 @@ require("./libs")(program)
 require("./controllers")(program)
 
 // New Doppler CLI Banner
-console.log(chalk.red("DEPRECATED: Please use the new CLI at https://docs.doppler.com/docs/enclave-installation\n\n"))
+const args = new Set(process.argv)
+
+if(!args.has("--json") && !args.has("--plain")) {
+  console.log(chalk.red("DEPRECATED: Please use the new CLI at https://docs.doppler.com/docs/enclave-installation\n\n"))
+}
 
 // Parse Arguments
 program.parse(process.argv);
