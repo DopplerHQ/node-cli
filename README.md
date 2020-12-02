@@ -1,6 +1,6 @@
 # DEPRECATED AND SCHEDULED FOR REMOVAL FROM NPM JANUARY 15, 2021
 
-The [Node CLI](https://www.npmjs.com/package/@dopplerhq/cli) is deprecated and **scheduled for removal from npm** on January 15, 2021. Learn how to [migrate to the new CLI](https://dash.readme.com/project/doppler/v3/docs/saying-goodbye-to-the-doppler-client-packages-node-cli).
+The [Node CLI](https://www.npmjs.com/package/@dopplerhq/cli) is deprecated and **scheduled for removal from npm** on January 15, 2021. Learn how to [migrate to the new CLI](https://docs.doppler.com/docs/saying-goodbye-to-the-doppler-client-packages-node-cli).
 
 # Doppler Node.js Library
 
