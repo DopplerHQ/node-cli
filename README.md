@@ -1,7 +1,6 @@
-# DEPRECATED
-The new Doppler CLI is exceptionally light and fast, and is provided as a binary to support environments without `node`.
-Migrate today by visiting our [installation documentation](https://docs.doppler.com/docs/enclave-installation).
+# DEPRECATED AND SCHEDULED FOR REMOVAL FROM NPM JANUARY 15, 2021
 
+The [Node CLI](https://www.npmjs.com/package/@dopplerhq/cli) is deprecated and **scheduled for removal from npm** on January 15, 2021. Learn how to [migrate to the new CLI](https://docs.doppler.com/docs/saying-goodbye-to-the-doppler-client-packages-node-cli).
 
 # Doppler Node.js Library
 
