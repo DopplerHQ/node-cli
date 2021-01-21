@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+throw new Error("This package is deprecated and no longer functional. Learn how to migrate to the new CLI - https://docs.doppler.com/docs/saying-goodbye-to-the-doppler-client-packages-node-cli")
+
 const program = require("commander")
 const package = require("./package")
 const axios = require("axios")
